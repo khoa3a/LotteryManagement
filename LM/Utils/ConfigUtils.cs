@@ -23,9 +23,9 @@ namespace LM.Utils
             }
         }
 
-        public string CititransServiceUrl = ConfigurationManager.AppSettings["CititransServiceUrl"];
-        public string CititransSecretKey = ConfigurationManager.AppSettings["CititransSecretKey"];
-        public string CititransAgentId = ConfigurationManager.AppSettings["CititransAgentId"];
+        public string LotteryServiceUrl = ConfigurationManager.AppSettings["LotteryServiceUrl"];
+        //public string CititransSecretKey = ConfigurationManager.AppSettings["CititransSecretKey"];
+        //public string CititransAgentId = ConfigurationManager.AppSettings["CititransAgentId"];
 
         public int CacheDayDuration
         {

@@ -2,14 +2,14 @@
 {
     internal class RepositoryFactory
     {
-        //public static CititransPointMappingRepository GetPointRepo()
-        //{
-        //    return new CititransPointMappingRepository();
-        //}
+        public static SouthFridayRepository GetSouthFridayRepo()
+        {
+            return new SouthFridayRepository();
+        }
 
-        //public static CititransTripRepository GetTripRepo()
-        //{
-        //    return new CititransTripRepository();
-        //}
+        public static SouthSaturdayRepository GetSouthSaturdayRepo()
+        {
+            return new SouthSaturdayRepository();
+        }
     }
 }

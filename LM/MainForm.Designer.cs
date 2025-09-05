@@ -28,19 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
+            button1 = new Button();
+            dateTimePicker1 = new DateTimePicker();
             SuspendLayout();
             // 
-            // Form1
+            // button1
+            // 
+            button1.Location = new Point(405, 79);
+            button1.Name = "button1";
+            button1.Size = new Size(212, 47);
+            button1.TabIndex = 0;
+            button1.Text = "Collect";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(111, 99);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(259, 27);
+            dateTimePicker1.TabIndex = 1;
+            // 
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Name = "Form1";
+            Controls.Add(dateTimePicker1);
+            Controls.Add(button1);
+            Name = "MainForm";
             Text = "Form1";
-            Load += Form1_Load;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button button1;
+        private DateTimePicker dateTimePicker1;
     }
 }
