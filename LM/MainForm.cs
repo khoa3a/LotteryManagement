@@ -11,6 +11,9 @@ namespace LM
 {
     public partial class MainForm : Form
     {
+        private static SouthMondayRepository mondayRepo;
+        private static SouthTuesdayRepository tuesdayRepo;
+        private static SouthWednesdayRepository wednesdayRepo;
         private static SouthFridayRepository fridayRepo;
         private static SouthSaturdayRepository saturdayRepo;
 
@@ -24,6 +27,9 @@ namespace LM
 
         private static void InitRepository()
         {
+            mondayRepo = RepositoryFactory.GetSouthMondayRepo();
+            tuesdayRepo = RepositoryFactory.GetSouthTuesdayRepo();
+            wednesdayRepo = RepositoryFactory.GetSouthWednesdayRepo();
             fridayRepo = RepositoryFactory.GetSouthFridayRepo();
             saturdayRepo = RepositoryFactory.GetSouthSaturdayRepo();
         }
@@ -40,26 +46,38 @@ namespace LM
 
         private void HandleButton1Click(object sender, EventArgs e)
         {
-            var currentDate = dateTimePicker1.Value;
-            var dateKey = AppUtils.ToDateKey(currentDate);
+            var currentDate = dateTimePicker1.Value;            
 
-            var serviceUrl = ConfigUtils.Instance.LotteryServiceUrl + dateKey + ".html";
+            List<NumberModel> allNumbers = new List<NumberModel>();
 
-            CollectData(serviceUrl, currentDate);
+            for (int i = 0; i < 10; i++) 
+            {
+                var dateKey = AppUtils.ToDateKey(currentDate);
+
+                var serviceUrl = ConfigUtils.Instance.LotteryServiceUrl + dateKey + ".html";
+
+                var numbers = CollectData(serviceUrl, currentDate);
+
+                allNumbers.AddRange(numbers);
+
+                currentDate = currentDate.AddDays(-7);
+            }
+
+            
+
+            SaveData(currentDate.DayOfWeek, allNumbers).GetAwaiter().GetResult();
+
+            Dispose();
+            Close();
         }
 
-        private void CollectData(string url, DateTime currentDate)
+        private List<NumberModel> CollectData(string url, DateTime currentDate)
         {
             var dataTable = AppUtils.ToDataTable(url);
 
             var numbers = ToNumbers(dataTable, currentDate);
 
-            List<SouthSaturdayEntity> southSaturdayEntities = ToSouthSaturdayEntities(numbers);
-
-            foreach (var batch in southSaturdayEntities.Batches(AppConstants.DefaultBatchSize))
-            {
-                saturdayRepo.InsertMany(batch).GetAwaiter().GetResult();
-            }
+            return numbers;
 
             //DayOfWeek dayOfWeek = currentDate.DayOfWeek;
 
@@ -70,9 +88,45 @@ namespace LM
             //}
         }
 
+        private async Task SaveData(DayOfWeek dayOfWeek, List<NumberModel> numbers)
+        {
+            switch (dayOfWeek)
+            {
+                case DayOfWeek.Friday:
+                    break;
+                case DayOfWeek.Monday:
+                    List<SouthMondayEntity> southMondayEntities = numbers.Select(x => new SouthMondayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                    }).ToList();
+                    await mondayRepo.InsertMany(southMondayEntities);
+                    break;
+                case DayOfWeek.Tuesday:
+                    List<SouthTuesdayEntity> southTuesdayEntities = numbers.Select(x => new SouthTuesdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                    }).ToList();
+                    await tuesdayRepo.InsertMany(southTuesdayEntities);
+                    break;
+                case DayOfWeek.Wednesday:
+                    List<SouthWednesdayEntity> southWednesdayEntities = numbers.Select(x => new SouthWednesdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                    }).ToList();
+                    await wednesdayRepo.InsertMany(southWednesdayEntities);
+                    break;
+            }
+        }
+
         private List<SouthSaturdayEntity> ToSouthSaturdayEntities(List<NumberModel> numbers)
-        { 
-            return numbers.Select(x=> new SouthSaturdayEntity 
+        {
+            return numbers.Select(x => new SouthSaturdayEntity
             {
                 DateKey = x.DateKey,
                 Name = x.Name,
@@ -81,7 +135,7 @@ namespace LM
         }
 
         private List<NumberModel> ToNumbers(DataTable dataTable, DateTime currentDate)
-        { 
+        {
             var result = new List<NumberModel>();
 
             var dateKey = AppUtils.ToDateKey(currentDate);
