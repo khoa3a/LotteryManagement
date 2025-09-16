@@ -2,8 +2,8 @@
 
 namespace LM.Models.Entities
 {
-    [Table("SouthWednesday")]
-    public partial class SouthWednesdayEntity
+    [Table("SouthSunday")]
+    public partial class SouthSundayEntity
     {
         public int Id { get; set; }
         public string DateKey { get; set; }

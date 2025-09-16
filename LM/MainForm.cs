@@ -1,11 +1,9 @@
-using HtmlAgilityPack;
 using LM.DAL;
 using LM.Models;
 using LM.Models.Entities;
 using LM.Utils;
 using System.Data;
-using System.Globalization;
-using System.Security.Policy;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace LM
 {
@@ -14,8 +12,10 @@ namespace LM
         private static SouthMondayRepository mondayRepo;
         private static SouthTuesdayRepository tuesdayRepo;
         private static SouthWednesdayRepository wednesdayRepo;
+        private static SouthThursdayRepository thursdayRepo;
         private static SouthFridayRepository fridayRepo;
         private static SouthSaturdayRepository saturdayRepo;
+        private static SouthSundayRepository sundayRepo;
 
         public MainForm()
         {
@@ -30,8 +30,10 @@ namespace LM
             mondayRepo = RepositoryFactory.GetSouthMondayRepo();
             tuesdayRepo = RepositoryFactory.GetSouthTuesdayRepo();
             wednesdayRepo = RepositoryFactory.GetSouthWednesdayRepo();
+            thursdayRepo = RepositoryFactory.GetSouthThursdayRepo();
             fridayRepo = RepositoryFactory.GetSouthFridayRepo();
             saturdayRepo = RepositoryFactory.GetSouthSaturdayRepo();
+            sundayRepo = RepositoryFactory.GetSouthSundayRepo();
         }
 
         private void InitializeLayout()
@@ -46,11 +48,11 @@ namespace LM
 
         private void HandleButton1Click(object sender, EventArgs e)
         {
-            var currentDate = dateTimePicker1.Value;            
+            var currentDate = dateTimePicker1.Value;
 
             List<NumberModel> allNumbers = new List<NumberModel>();
 
-            for (int i = 0; i < 10; i++) 
+            for (int i = 0; i < 10; i++)
             {
                 var dateKey = AppUtils.ToDateKey(currentDate);
 
@@ -63,7 +65,7 @@ namespace LM
                 currentDate = currentDate.AddDays(-7);
             }
 
-            
+
 
             SaveData(currentDate.DayOfWeek, allNumbers).GetAwaiter().GetResult();
 
@@ -92,14 +94,13 @@ namespace LM
         {
             switch (dayOfWeek)
             {
-                case DayOfWeek.Friday:
-                    break;
                 case DayOfWeek.Monday:
                     List<SouthMondayEntity> southMondayEntities = numbers.Select(x => new SouthMondayEntity
                     {
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
+                        SubNumber = x.SubNumber,
                     }).ToList();
                     await mondayRepo.InsertMany(southMondayEntities);
                     break;
@@ -109,6 +110,7 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
+                        SubNumber = x.SubNumber,
                     }).ToList();
                     await tuesdayRepo.InsertMany(southTuesdayEntities);
                     break;
@@ -118,8 +120,39 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
+                        SubNumber = x.SubNumber,
                     }).ToList();
                     await wednesdayRepo.InsertMany(southWednesdayEntities);
+                    break;
+                case DayOfWeek.Thursday:
+                    List<SouthThursdayEntity> southThursdayEntities = numbers.Select(x => new SouthThursdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        SubNumber = x.SubNumber,
+                    }).ToList();
+                    await thursdayRepo.InsertMany(southThursdayEntities);
+                    break;
+                case DayOfWeek.Friday:
+                    List<SouthFridayEntity> southFridayEntities = numbers.Select(x => new SouthFridayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        SubNumber = x.SubNumber,
+                    }).ToList();
+                    await fridayRepo.InsertMany(southFridayEntities);
+                    break;
+                case DayOfWeek.Sunday:
+                    List<SouthSundayEntity> southSundayEntities = numbers.Select(x => new SouthSundayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        SubNumber = x.SubNumber,
+                    }).ToList();
+                    await sundayRepo.InsertMany(southSundayEntities);
                     break;
             }
         }
@@ -152,33 +185,54 @@ namespace LM
                 var numbers1 = number1.Split('-');
                 foreach (var n1 in numbers1)
                 {
+                    var No1 = n1.Trim();
+                    var SubNo1 = No1;
+                    if (No1.Length > 2)
+                    {
+                        SubNo1 = No1.Substring(No1.Length - 2);
+                    }
                     result.Add(new NumberModel
                     {
                         DateKey = dateKey,
                         Name = name1,
-                        Number = n1.Trim()
+                        Number = No1,
+                        SubNumber = SubNo1
                     });
                 }
 
                 var numbers2 = number2.Split('-');
                 foreach (var n2 in numbers2)
                 {
+                    var No2 = n2.Trim();
+                    var SubNo2 = No2;
+                    if (No2.Length > 2)
+                    {
+                        SubNo2 = No2.Substring(No2.Length - 2);
+                    }
                     result.Add(new NumberModel
                     {
                         DateKey = dateKey,
                         Name = name2,
-                        Number = n2.Trim()
+                        Number = No2,
+                        SubNumber = SubNo2
                     });
                 }
 
                 var numbers3 = number3.Split('-');
                 foreach (var n3 in numbers3)
                 {
+                    var No3 = n3.Trim();
+                    var SubNo3 = No3;
+                    if (No3.Length > 2)
+                    {
+                        SubNo3 = No3.Substring(No3.Length - 2);
+                    }
                     result.Add(new NumberModel
                     {
                         DateKey = dateKey,
                         Name = name3,
-                        Number = n3.Trim()
+                        Number = No3,
+                        SubNumber = SubNo3
                     });
                 }
             }
