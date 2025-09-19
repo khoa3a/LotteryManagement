@@ -3,7 +3,6 @@ using LM.Models;
 using LM.Models.Entities;
 using LM.Utils;
 using System.Data;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace LM
 {
@@ -144,6 +143,16 @@ namespace LM
                     }).ToList();
                     await fridayRepo.InsertMany(southFridayEntities);
                     break;
+                case DayOfWeek.Saturday:
+                    List<SouthSaturdayEntity> southSaturdayEntities = numbers.Select(x => new SouthSaturdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        SubNumber = x.SubNumber,
+                    }).ToList();
+                    await saturdayRepo.InsertMany(southSaturdayEntities);
+                    break;
                 case DayOfWeek.Sunday:
                     List<SouthSundayEntity> southSundayEntities = numbers.Select(x => new SouthSundayEntity
                     {
@@ -176,11 +185,23 @@ namespace LM
             var name2 = dataTable.Columns[2].ColumnName;
             var name3 = dataTable.Columns[3].ColumnName;
 
+            var name4 = string.Empty;
+            if (dataTable.Columns.Count > 4)
+            {
+                name4 = dataTable.Columns[4].ColumnName;
+            }
+
             for (var index = 1; index < dataTable.Rows.Count; index++)
             {
                 var number1 = dataTable.Rows[index][1].ToString();
                 var number2 = dataTable.Rows[index][2].ToString();
                 var number3 = dataTable.Rows[index][3].ToString();
+
+                var number4 = string.Empty;
+                if (!string.IsNullOrEmpty(name4))
+                {
+                    number4 = dataTable.Rows[index][4].ToString();
+                }
 
                 var numbers1 = number1.Split('-');
                 foreach (var n1 in numbers1)
@@ -234,6 +255,27 @@ namespace LM
                         Number = No3,
                         SubNumber = SubNo3
                     });
+                }
+
+                if (!string.IsNullOrEmpty(number4))
+                {
+                    var numbers4 = number4.Split('-');
+                    foreach (var n4 in numbers4)
+                    {
+                        var No4 = n4.Trim();
+                        var SubNo4 = No4;
+                        if (No4.Length > 2)
+                        {
+                            SubNo4 = No4.Substring(No4.Length - 2);
+                        }
+                        result.Add(new NumberModel
+                        {
+                            DateKey = dateKey,
+                            Name = name4,
+                            Number = No4,
+                            SubNumber = SubNo4
+                        });
+                    }
                 }
             }
 
