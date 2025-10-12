@@ -1,7 +1,7 @@
-using LM.DAL;
-using LM.Models;
-using LM.Models.Entities;
-using LM.Utils;
+using Common.Utils;
+using DAL;
+using BLL;
+using BLL.Entities;
 using System.Data;
 
 namespace LM
@@ -68,8 +68,10 @@ namespace LM
 
             SaveData(currentDate.DayOfWeek, allNumbers).GetAwaiter().GetResult();
 
-            Dispose();
-            Close();
+            MessageBox.Show("Done");
+
+            //Dispose();
+            //Close();
         }
 
         private List<NumberModel> CollectData(string url, DateTime currentDate)
