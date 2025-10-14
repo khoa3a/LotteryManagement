@@ -29,6 +29,8 @@ class Program
         {
             var dateKey = AppUtils.ToDateKey(currentDate);
 
+            Console.WriteLine($"{dateKey}...");
+
             var serviceUrl = ConfigUtils.Instance.LotteryServiceUrl + dateKey + ".html";
 
             var numbers = CollectData(serviceUrl, currentDate);
@@ -38,9 +40,9 @@ class Program
             currentDate = currentDate.AddDays(-7);
         }
 
-
-
         SaveData(currentDate.DayOfWeek, allNumbers).GetAwaiter().GetResult();
+
+        Console.WriteLine("Collector ended...");
     }
 
     private static void InitRepository()
@@ -65,6 +67,9 @@ class Program
                     Name = x.Name,
                     Number = x.Number,
                     SubNumber = x.SubNumber,
+                    Sub0 = x.Sub0,
+                    Sub1 = x.Sub1,
+                    Sub2 = x.Sub2,
                 }).ToList();
                 await mondayRepo.InsertMany(southMondayEntities);
                 break;
@@ -75,6 +80,9 @@ class Program
                     Name = x.Name,
                     Number = x.Number,
                     SubNumber = x.SubNumber,
+                    Sub0 = x.Sub0,
+                    Sub1 = x.Sub1,
+                    Sub2 = x.Sub2,
                 }).ToList();
                 await tuesdayRepo.InsertMany(southTuesdayEntities);
                 break;
@@ -85,6 +93,9 @@ class Program
                     Name = x.Name,
                     Number = x.Number,
                     SubNumber = x.SubNumber,
+                    Sub0 = x.Sub0,
+                    Sub1 = x.Sub1,
+                    Sub2 = x.Sub2,
                 }).ToList();
                 await wednesdayRepo.InsertMany(southWednesdayEntities);
                 break;
@@ -95,6 +106,9 @@ class Program
                     Name = x.Name,
                     Number = x.Number,
                     SubNumber = x.SubNumber,
+                    Sub0 = x.Sub0,
+                    Sub1 = x.Sub1,
+                    Sub2 = x.Sub2,
                 }).ToList();
                 await thursdayRepo.InsertMany(southThursdayEntities);
                 break;
@@ -105,6 +119,9 @@ class Program
                     Name = x.Name,
                     Number = x.Number,
                     SubNumber = x.SubNumber,
+                    Sub0 = x.Sub0,
+                    Sub1 = x.Sub1,
+                    Sub2 = x.Sub2,
                 }).ToList();
                 await fridayRepo.InsertMany(southFridayEntities);
                 break;
@@ -115,6 +132,9 @@ class Program
                     Name = x.Name,
                     Number = x.Number,
                     SubNumber = x.SubNumber,
+                    Sub0 = x.Sub0,
+                    Sub1 = x.Sub1,
+                    Sub2 = x.Sub2,
                 }).ToList();
                 await saturdayRepo.InsertMany(southSaturdayEntities);
                 break;
@@ -125,6 +145,9 @@ class Program
                     Name = x.Name,
                     Number = x.Number,
                     SubNumber = x.SubNumber,
+                    Sub0 = x.Sub0,
+                    Sub1 = x.Sub1,
+                    Sub2 = x.Sub2,
                 }).ToList();
                 await sundayRepo.InsertMany(southSundayEntities);
                 break;
@@ -171,54 +194,102 @@ class Program
             foreach (var n1 in numbers1)
             {
                 var No1 = n1.Trim();
-                var SubNo1 = No1;
-                if (No1.Length > 2)
+                var SubNo1 = No1.ToCharArray();
+
+                if (SubNo1.Length > 2)
                 {
-                    SubNo1 = No1.Substring(No1.Length - 2);
+                    var lastThree1 = SubNo1.Skip(Math.Max(0, SubNo1.Length - 3)).ToArray();
+                    result.Add(new NumberModel
+                    {
+                        DateKey = dateKey,
+                        Name = name1,
+                        Number = No1,
+                        SubNumber = $"{SubNo1[1]}{SubNo1[2]}",
+                        Sub0 = lastThree1[0].ToString(),
+                        Sub1 = lastThree1[1].ToString(),
+                        Sub2 = lastThree1[2].ToString(),
+                    });
                 }
-                result.Add(new NumberModel
+                else
                 {
-                    DateKey = dateKey,
-                    Name = name1,
-                    Number = No1,
-                    SubNumber = SubNo1
-                });
+                    result.Add(new NumberModel
+                    {
+                        DateKey = dateKey,
+                        Name = name1,
+                        Number = No1,
+                        SubNumber = $"{SubNo1[0]}{SubNo1[1]}",
+                        Sub1 = SubNo1[0].ToString(),
+                        Sub2 = SubNo1[1].ToString(),
+                    });
+                }
             }
 
             var numbers2 = number2.Split('-');
             foreach (var n2 in numbers2)
             {
                 var No2 = n2.Trim();
-                var SubNo2 = No2;
-                if (No2.Length > 2)
+                var SubNo2 = No2.ToCharArray();
+
+                if (SubNo2.Length > 2)
                 {
-                    SubNo2 = No2.Substring(No2.Length - 2);
+                    var lastThree2 = SubNo2.Skip(Math.Max(0, SubNo2.Length - 3)).ToArray();
+                    result.Add(new NumberModel
+                    {
+                        DateKey = dateKey,
+                        Name = name2,
+                        Number = No2,
+                        SubNumber = $"{SubNo2[1]}{SubNo2[2]}",
+                        Sub0 = lastThree2[0].ToString(),
+                        Sub1 = lastThree2[1].ToString(),
+                        Sub2 = lastThree2[2].ToString(),
+                    });
                 }
-                result.Add(new NumberModel
+                else
                 {
-                    DateKey = dateKey,
-                    Name = name2,
-                    Number = No2,
-                    SubNumber = SubNo2
-                });
+                    result.Add(new NumberModel
+                    {
+                        DateKey = dateKey,
+                        Name = name2,
+                        Number = No2,
+                        SubNumber = $"{SubNo2[0]}{SubNo2[1]}",
+                        Sub1 = SubNo2[0].ToString(),
+                        Sub2 = SubNo2[1].ToString(),
+                    });
+                }
             }
 
             var numbers3 = number3.Split('-');
             foreach (var n3 in numbers3)
             {
                 var No3 = n3.Trim();
-                var SubNo3 = No3;
-                if (No3.Length > 2)
+                var SubNo3 = No3.ToCharArray();
+
+                if (SubNo3.Length > 2)
                 {
-                    SubNo3 = No3.Substring(No3.Length - 2);
+                    var lastThree3 = SubNo3.Skip(Math.Max(0, SubNo3.Length - 3)).ToArray();
+                    result.Add(new NumberModel
+                    {
+                        DateKey = dateKey,
+                        Name = name3,
+                        Number = No3,
+                        SubNumber = $"{SubNo3[1]}{SubNo3[2]}",
+                        Sub0 = lastThree3[0].ToString(),
+                        Sub1 = lastThree3[1].ToString(),
+                        Sub2 = lastThree3[2].ToString(),
+                    });
                 }
-                result.Add(new NumberModel
+                else
                 {
-                    DateKey = dateKey,
-                    Name = name3,
-                    Number = No3,
-                    SubNumber = SubNo3
-                });
+                    result.Add(new NumberModel
+                    {
+                        DateKey = dateKey,
+                        Name = name3,
+                        Number = No3,
+                        SubNumber = $"{SubNo3[0]}{SubNo3[1]}",
+                        Sub1 = SubNo3[0].ToString(),
+                        Sub2 = SubNo3[1].ToString(),
+                    });
+                }
             }
 
             if (!string.IsNullOrEmpty(number4))
@@ -227,18 +298,34 @@ class Program
                 foreach (var n4 in numbers4)
                 {
                     var No4 = n4.Trim();
-                    var SubNo4 = No4;
-                    if (No4.Length > 2)
+                    var SubNo4 = No4.ToCharArray();
+
+                    if (SubNo4.Length > 2)
                     {
-                        SubNo4 = No4.Substring(No4.Length - 2);
+                        var lastThree4 = SubNo4.Skip(Math.Max(0, SubNo4.Length - 3)).ToArray();
+                        result.Add(new NumberModel
+                        {
+                            DateKey = dateKey,
+                            Name = name4,
+                            Number = No4,
+                            SubNumber = $"{SubNo4[1]}{SubNo4[2]}",
+                            Sub0 = lastThree4[0].ToString(),
+                            Sub1 = lastThree4[1].ToString(),
+                            Sub2 = lastThree4[2].ToString(),
+                        });
                     }
-                    result.Add(new NumberModel
+                    else
                     {
-                        DateKey = dateKey,
-                        Name = name4,
-                        Number = No4,
-                        SubNumber = SubNo4
-                    });
+                        result.Add(new NumberModel
+                        {
+                            DateKey = dateKey,
+                            Name = name4,
+                            Number = No4,
+                            SubNumber = $"{SubNo4[0]}{SubNo4[1]}",
+                            Sub1 = SubNo4[0].ToString(),
+                            Sub2 = SubNo4[1].ToString(),
+                        });
+                    }
                 }
             }
         }
