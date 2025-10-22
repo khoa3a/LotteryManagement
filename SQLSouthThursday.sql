@@ -12,6 +12,7 @@ update SouthThursday set Sub1 = SUBSTRING(SubNumber, 1, 1)
 --truncate table SouthThursday
 
 --select * from SouthThursday nolock
+--select * from SouthWednesday
 
 SELECT TOP 5 Sub1, COUNT(*) AS Frequency, [Name]
 FROM SouthThursday

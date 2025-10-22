@@ -27,6 +27,47 @@ namespace Common.Utils
             }
         }
 
+        //todo MienBac
+        // 1. Get data history 4 numbers
+        // 2. ask AI to predict the next 4 numbers
+
+        public static List<string> ToNorthData(string url)
+        {
+            // url = "https://www.minhngoc.com.vn/ket-qua-xo-so/mien-bac/28-02-2021.html";
+            var web = new HtmlWeb();
+            var doc = web.Load(url);
+
+            List<string> listData = new List<string>();
+
+            var data = doc.DocumentNode.SelectNodes("//table[contains(@class,'bkqmiennam')]");
+
+            var table_mienbac = data[0];
+
+            doc.LoadHtml(table_mienbac.InnerHtml);
+            var data2 = doc.DocumentNode.SelectNodes("//table//tbody//tr");
+
+            var rows = data2.Select(tr => tr
+                .Elements("td")
+                .Select(td => System.Net.WebUtility.HtmlDecode(td.InnerHtml).Trim())
+                .ToArray());
+
+            rows = rows.Skip(1);
+
+            foreach (var row in rows)
+            {
+                var temp = HtmlToPlainText(row[1].Replace("<div>", "").Replace("</div>", "-").Trim());
+                var text = string.Join(" - ", temp.Split('-').Where(x => !string.IsNullOrEmpty(x)).ToArray());
+
+                var texts = text.Split(new char[] { '-' });    
+
+                listData.AddRange(texts);
+            }
+
+            listData.RemoveAt(listData.Count - 1);
+
+            return listData;
+        }
+
         public static DataTable ToDataTable(string url)
         {
             // url = "https://www.minhngoc.com.vn/ket-qua-xo-so/28-02-2021.html";

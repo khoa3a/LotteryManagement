@@ -1,15 +1,16 @@
-﻿namespace BLL
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BLL.Entities
 {
-    public class NumberModel
+    [Table("NorthTuesday")]
+    public class NorthTuesdayEntity
     {
+        public int Id { get; set; }
         public string DateKey { get; set; }
         public string Number { get; set; }
-        public string SubNumber { get; set; }
-
         public string Sub2Number { get; set; }
         public string Sub3Number { get; set; }
         public string Sub4Number { get; set; }
-        public string Sub0 { get; set; }
         public string Sub1 { get; set; }
         public string Sub2 { get; set; }
         public string Sub3 { get; set; }

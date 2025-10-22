@@ -36,5 +36,25 @@
         {
             return new SouthSundayRepository();
         }
+
+        public static NorthMondayRepository GetNorthMondayRepo()
+        {
+            return new NorthMondayRepository();
+        }
+
+        public static NorthTuesdayRepository GetNorthTuesdayRepo()
+        {
+            return new NorthTuesdayRepository();
+        }
+
+        public static NorthWednesdayRepository GetNorthWednesdayRepo()
+        {
+            return new NorthWednesdayRepository();
+        }
+
+        public static NorthThursdayRepository GetNorthThursdayRepo()
+        {
+            return new NorthThursdayRepository();
+        }
     }
 }

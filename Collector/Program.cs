@@ -15,23 +15,38 @@ class Program
     private static SouthSaturdayRepository saturdayRepo;
     private static SouthSundayRepository sundayRepo;
 
+    private static NorthMondayRepository northMondayRepo;
+    private static NorthTuesdayRepository northTuesdayRepo;
+    private static NorthThursdayRepository northThursdayRepo;
+
+    public static int WEEK_COUNT = 24;
+    public static bool NORTH_DATA = false;
+
     static void Main()
     {
         InitRepository();
 
         Console.WriteLine("Collector started...");
 
-        var currentDate = DateTime.Now;
+        var currentDate = DateTime.Now.AddDays(-7);
 
         List<NumberModel> allNumbers = new List<NumberModel>();
 
-        for (int i = 0; i < 10; i++)
+
+        for (int i = 0; i < WEEK_COUNT; i++)
         {
             var dateKey = AppUtils.ToDateKey(currentDate);
 
-            Console.WriteLine($"{dateKey}...");
+            var baseUrl = ConfigUtils.Instance.LotteryServiceUrl;
+            if (NORTH_DATA)
+            {
+                baseUrl += "mien-bac/";
+            }
 
-            var serviceUrl = ConfigUtils.Instance.LotteryServiceUrl + dateKey + ".html";
+            var serviceUrl = baseUrl + dateKey + ".html";
+
+            Console.WriteLine($"{serviceUrl}...");
+
 
             var numbers = CollectData(serviceUrl, currentDate);
 
@@ -54,6 +69,10 @@ class Program
         fridayRepo = RepositoryFactory.GetSouthFridayRepo();
         saturdayRepo = RepositoryFactory.GetSouthSaturdayRepo();
         sundayRepo = RepositoryFactory.GetSouthSundayRepo();
+
+        northMondayRepo = RepositoryFactory.GetNorthMondayRepo();
+        northTuesdayRepo = RepositoryFactory.GetNorthTuesdayRepo();
+        northThursdayRepo = RepositoryFactory.GetNorthThursdayRepo();
     }
 
     private static async Task SaveData(DayOfWeek dayOfWeek, List<NumberModel> numbers)
@@ -61,30 +80,71 @@ class Program
         switch (dayOfWeek)
         {
             case DayOfWeek.Monday:
-                List<SouthMondayEntity> southMondayEntities = numbers.Select(x => new SouthMondayEntity
+                if (NORTH_DATA)
                 {
-                    DateKey = x.DateKey,
-                    Name = x.Name,
-                    Number = x.Number,
-                    SubNumber = x.SubNumber,
-                    Sub0 = x.Sub0,
-                    Sub1 = x.Sub1,
-                    Sub2 = x.Sub2,
-                }).ToList();
-                await mondayRepo.InsertMany(southMondayEntities);
+                    List<NorthMondayEntity> northMondayEntities = numbers.Select(x => new NorthMondayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        Sub2Number = x.Sub2Number,
+                        Sub3Number = x.Sub3Number,
+                        Sub4Number = x.Sub4Number,
+                        Sub1 = x.Sub1,
+                        Sub2 = x.Sub2,
+                        Sub3 = x.Sub3,
+                        Sub4 = x.Sub4,
+                    }).ToList();
+                    await northMondayRepo.InsertMany(northMondayEntities);
+                }
+                else
+                {
+                    List<SouthMondayEntity> southMondayEntities = numbers.Select(x => new SouthMondayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        SubNumber = x.SubNumber,
+                        Sub0 = x.Sub0,
+                        Sub1 = x.Sub1,
+                        Sub2 = x.Sub2,
+                    }).ToList();
+                    await mondayRepo.InsertMany(southMondayEntities);
+                }
+
                 break;
             case DayOfWeek.Tuesday:
-                List<SouthTuesdayEntity> southTuesdayEntities = numbers.Select(x => new SouthTuesdayEntity
+                if (NORTH_DATA)
                 {
-                    DateKey = x.DateKey,
-                    Name = x.Name,
-                    Number = x.Number,
-                    SubNumber = x.SubNumber,
-                    Sub0 = x.Sub0,
-                    Sub1 = x.Sub1,
-                    Sub2 = x.Sub2,
-                }).ToList();
-                await tuesdayRepo.InsertMany(southTuesdayEntities);
+                    List<NorthTuesdayEntity> northTuesdayEntities = numbers.Select(x => new NorthTuesdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        Sub2Number = x.Sub2Number,
+                        Sub3Number = x.Sub3Number,
+                        Sub4Number = x.Sub4Number,
+                        Sub1 = x.Sub1,
+                        Sub2 = x.Sub2,
+                        Sub3 = x.Sub3,
+                        Sub4 = x.Sub4,
+                    }).ToList();
+                    await northTuesdayRepo.InsertMany(northTuesdayEntities);
+                }
+                else
+                {
+                    List<SouthTuesdayEntity> southTuesdayEntities = numbers.Select(x => new SouthTuesdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        SubNumber = x.SubNumber,
+                        Sub0 = x.Sub0,
+                        Sub1 = x.Sub1,
+                        Sub2 = x.Sub2,
+                    }).ToList();
+                    await tuesdayRepo.InsertMany(southTuesdayEntities);
+                }
                 break;
             case DayOfWeek.Wednesday:
                 List<SouthWednesdayEntity> southWednesdayEntities = numbers.Select(x => new SouthWednesdayEntity
@@ -100,17 +160,38 @@ class Program
                 await wednesdayRepo.InsertMany(southWednesdayEntities);
                 break;
             case DayOfWeek.Thursday:
-                List<SouthThursdayEntity> southThursdayEntities = numbers.Select(x => new SouthThursdayEntity
+                if (NORTH_DATA)
                 {
-                    DateKey = x.DateKey,
-                    Name = x.Name,
-                    Number = x.Number,
-                    SubNumber = x.SubNumber,
-                    Sub0 = x.Sub0,
-                    Sub1 = x.Sub1,
-                    Sub2 = x.Sub2,
-                }).ToList();
-                await thursdayRepo.InsertMany(southThursdayEntities);
+                    List<NorthThursdayEntity> northThursdayEntities = numbers.Select(x => new NorthThursdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        Sub2Number = x.Sub2Number,
+                        Sub3Number = x.Sub3Number,
+                        Sub4Number = x.Sub4Number,
+                        Sub1 = x.Sub1,
+                        Sub2 = x.Sub2,
+                        Sub3 = x.Sub3,
+                        Sub4 = x.Sub4,
+                    }).ToList();
+                    await northThursdayRepo.InsertMany(northThursdayEntities);
+                }
+                else
+                {
+                    List<SouthThursdayEntity> southThursdayEntities = numbers.Select(x => new SouthThursdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        SubNumber = x.SubNumber,
+                        Sub0 = x.Sub0,
+                        Sub1 = x.Sub1,
+                        Sub2 = x.Sub2,
+                    }).ToList();
+                    await thursdayRepo.InsertMany(southThursdayEntities);
+                }
+
                 break;
             case DayOfWeek.Friday:
                 List<SouthFridayEntity> southFridayEntities = numbers.Select(x => new SouthFridayEntity
@@ -156,11 +237,109 @@ class Program
 
     private static List<NumberModel> CollectData(string url, DateTime currentDate)
     {
-        var dataTable = AppUtils.ToDataTable(url);
+        var result = new List<NumberModel>();
+        if (!NORTH_DATA)
+        {
+            var dataTable = AppUtils.ToDataTable(url);
 
-        var numbers = ToNumbers(dataTable, currentDate);
+            result = ToNumbers(dataTable, currentDate);
+        }
+        else
+        {
+            var listData = AppUtils.ToNorthData(url);
 
-        return numbers;
+            result = ToNumbers(listData, currentDate);
+        }
+
+        return result;
+    }
+
+    private static List<NumberModel> ToNumbers(List<string> listData, DateTime currentDate)
+    {
+        var result = new List<NumberModel>();
+
+        foreach (var data in listData)
+        {
+            var chars = data.Trim().ToCharArray();
+            var len = chars.Length;
+
+            if (len == 2)
+            {
+                result.Add(new NumberModel
+                {
+                    DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Name = "MB",
+                    Number = data,
+                    Sub2Number = data,
+                    Sub3 = chars[0].ToString(),
+                    Sub4 = chars[1].ToString(),
+                });
+            }
+            else if (len == 3)
+            {
+                result.Add(new NumberModel
+                {
+                    DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Name = "MB",
+                    Number = data,
+                    Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                    Sub3Number = data,
+                    Sub1 = chars[len - 3].ToString(),
+                    Sub2 = chars[len - 2].ToString(),
+                    Sub3 = chars[len - 1].ToString(),
+                });
+            }
+            else if (len == 3)
+            {
+                result.Add(new NumberModel
+                {
+                    DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Name = "MB",
+                    Number = data,
+                    Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                    Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                    Sub4Number = data,
+                    Sub1 = chars[len - 4].ToString(),
+                    Sub2 = chars[len - 3].ToString(),
+                    Sub3 = chars[len - 2].ToString(),
+                    Sub4 = chars[len - 1].ToString(),
+                });
+            }
+            else if (len == 4)
+            {
+                result.Add(new NumberModel
+                {
+                    DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Name = "MB",
+                    Number = data,
+                    Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                    Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                    Sub4Number = data,
+                    Sub1 = chars[len - 4].ToString(),
+                    Sub2 = chars[len - 3].ToString(),
+                    Sub3 = chars[len - 2].ToString(),
+                    Sub4 = chars[len - 1].ToString(),
+                });
+            }
+            else if (len == 5)
+            {
+                result.Add(new NumberModel
+                {
+                    DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Name = "MB",
+                    Number = data,
+                    Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                    Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                    Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                    Sub1 = chars[len - 4].ToString(),
+                    Sub2 = chars[len - 3].ToString(),
+                    Sub3 = chars[len - 2].ToString(),
+                    Sub4 = chars[len - 1].ToString(),
+                });
+            }
+        }
+
+        return result;
     }
 
     private static List<NumberModel> ToNumbers(DataTable dataTable, DateTime currentDate)
@@ -199,12 +378,13 @@ class Program
                 if (SubNo1.Length > 2)
                 {
                     var lastThree1 = SubNo1.Skip(Math.Max(0, SubNo1.Length - 3)).ToArray();
+                    var len1 = SubNo1.Length;
                     result.Add(new NumberModel
                     {
                         DateKey = dateKey,
                         Name = name1,
                         Number = No1,
-                        SubNumber = $"{SubNo1[1]}{SubNo1[2]}",
+                        SubNumber = $"{SubNo1[len1 - 2]}{SubNo1[len1 - 1]}",
                         Sub0 = lastThree1[0].ToString(),
                         Sub1 = lastThree1[1].ToString(),
                         Sub2 = lastThree1[2].ToString(),
@@ -229,6 +409,7 @@ class Program
             {
                 var No2 = n2.Trim();
                 var SubNo2 = No2.ToCharArray();
+                var len2 = SubNo2.Length;
 
                 if (SubNo2.Length > 2)
                 {
@@ -238,7 +419,7 @@ class Program
                         DateKey = dateKey,
                         Name = name2,
                         Number = No2,
-                        SubNumber = $"{SubNo2[1]}{SubNo2[2]}",
+                        SubNumber = $"{SubNo2[len2 - 2]}{SubNo2[len2 - 1]}",
                         Sub0 = lastThree2[0].ToString(),
                         Sub1 = lastThree2[1].ToString(),
                         Sub2 = lastThree2[2].ToString(),
@@ -263,6 +444,7 @@ class Program
             {
                 var No3 = n3.Trim();
                 var SubNo3 = No3.ToCharArray();
+                var len3 = SubNo3.Length;
 
                 if (SubNo3.Length > 2)
                 {
@@ -272,7 +454,7 @@ class Program
                         DateKey = dateKey,
                         Name = name3,
                         Number = No3,
-                        SubNumber = $"{SubNo3[1]}{SubNo3[2]}",
+                        SubNumber = $"{SubNo3[len3 - 2]}{SubNo3[len3 - 1]}",
                         Sub0 = lastThree3[0].ToString(),
                         Sub1 = lastThree3[1].ToString(),
                         Sub2 = lastThree3[2].ToString(),
@@ -299,6 +481,7 @@ class Program
                 {
                     var No4 = n4.Trim();
                     var SubNo4 = No4.ToCharArray();
+                    var len4 = SubNo4.Length;
 
                     if (SubNo4.Length > 2)
                     {
@@ -308,7 +491,7 @@ class Program
                             DateKey = dateKey,
                             Name = name4,
                             Number = No4,
-                            SubNumber = $"{SubNo4[1]}{SubNo4[2]}",
+                            SubNumber = $"{SubNo4[len4 - 2]}{SubNo4[len4 - 1]}",
                             Sub0 = lastThree4[0].ToString(),
                             Sub1 = lastThree4[1].ToString(),
                             Sub2 = lastThree4[2].ToString(),

@@ -24,12 +24,6 @@ GROUP BY Sub2, [Name] having [Name] = N'TP. HCM'
 ORDER BY Frequency DESC;
 GO
 
-SELECT TOP 5 Sub1, COUNT(*) AS Frequency, [Name]
-FROM SouthMonday
-GROUP BY Sub1, [Name] having [Name] = N'Cà Mau'
-ORDER BY Frequency DESC;
-GO
-
 SELECT TOP 5 Sub0, COUNT(*) AS Frequency, [Name]
 FROM SouthMonday
 GROUP BY Sub0, [Name] having [Name] = N'Cà Mau'

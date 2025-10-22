@@ -7,6 +7,8 @@ GO
 select * from SouthTuesday nolock
 order by DateKey
 
+ALTER TABLE SouthTuesday ADD Sub0 VARCHAR(2);
+
 
 update SouthTuesday set Sub2 = RIGHT(RTRIM(Number), 1)
 update SouthTuesday set Sub1 = SUBSTRING(SubNumber, 1, 1)
@@ -64,3 +66,12 @@ FROM SouthTuesday
 GROUP BY SubNumber, [Name] having [Name] = N'Vũng Tàu'
 ORDER BY Frequency DESC;
 GO
+
+select distinct subnumber from SouthTuesday where [Name] = N'Vũng Tàu'
+go
+
+select distinct subnumber from SouthTuesday where [Name] = N'Bạc Liêu'
+go
+
+select distinct subnumber from SouthTuesday where [Name] = N'Bến Tre'
+go
