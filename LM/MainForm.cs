@@ -101,7 +101,7 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
+                        Sub2Number = x.Sub2Number,
                     }).ToList();
                     await mondayRepo.InsertMany(southMondayEntities);
                     break;
@@ -111,7 +111,7 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
+                        Sub2Number = x.Sub2Number,
                     }).ToList();
                     await tuesdayRepo.InsertMany(southTuesdayEntities);
                     break;
@@ -121,7 +121,7 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
+                        Sub2Number = x.Sub2Number,
                     }).ToList();
                     await wednesdayRepo.InsertMany(southWednesdayEntities);
                     break;
@@ -131,7 +131,7 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
+                        Sub2Number = x.Sub2Number,
                     }).ToList();
                     await thursdayRepo.InsertMany(southThursdayEntities);
                     break;
@@ -141,7 +141,7 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
+                        Sub2Number = x.Sub2Number,
                     }).ToList();
                     await fridayRepo.InsertMany(southFridayEntities);
                     break;
@@ -151,7 +151,7 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
+                        Sub2Number = x.Sub2Number,
                     }).ToList();
                     await saturdayRepo.InsertMany(southSaturdayEntities);
                     break;
@@ -161,7 +161,7 @@ namespace LM
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
+                        Sub2Number = x.Sub2Number,
                     }).ToList();
                     await sundayRepo.InsertMany(southSundayEntities);
                     break;
@@ -219,7 +219,7 @@ namespace LM
                         DateKey = dateKey,
                         Name = name1,
                         Number = No1,
-                        SubNumber = SubNo1
+                        Sub2Number = SubNo1
                     });
                 }
 
@@ -237,7 +237,7 @@ namespace LM
                         DateKey = dateKey,
                         Name = name2,
                         Number = No2,
-                        SubNumber = SubNo2
+                        Sub2Number = SubNo2
                     });
                 }
 
@@ -255,7 +255,7 @@ namespace LM
                         DateKey = dateKey,
                         Name = name3,
                         Number = No3,
-                        SubNumber = SubNo3
+                        Sub2Number = SubNo3
                     });
                 }
 
@@ -275,7 +275,7 @@ namespace LM
                             DateKey = dateKey,
                             Name = name4,
                             Number = No4,
-                            SubNumber = SubNo4
+                            Sub2Number = SubNo4
                         });
                     }
                 }

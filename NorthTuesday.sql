@@ -53,3 +53,18 @@ GROUP BY Sub4
 HAVING Sub4 is not null
 ORDER BY Frequency DESC;
 GO
+
+SELECT TOP 100 sub4number, COUNT(*) AS Frequency, Datekey
+FROM NorthThursday
+GROUP BY sub4number, Datekey 
+HAVING Sub4Number is not null-- and (Sub4Number like '%09' or Sub4Number like '%90')
+ORDER BY Frequency DESC;
+GO
+
+
+SELECT TOP 100 sub3number, COUNT(*) AS Frequency, Datekey
+FROM NorthThursday
+GROUP BY sub3number, Datekey 
+HAVING Sub3Number is not null-- and (Sub4Number like '%09' or Sub4Number like '%90')
+ORDER BY Frequency DESC;
+GO

@@ -8,6 +8,10 @@ ALTER TABLE SouthMonday ADD XC bit;
 select * from SouthMonday nolock
 order by datekey 
 
+select DateKey as 'Date', Sub2Number as 'Number' from SouthMonday where [Name] = N'Đồng Tháp'
+
+select DateKey as 'Date', Sub2Number as 'Number' from SouthMonday where [Name] = N'Cà Mau'
+
 update SouthMonday set Sub2 = RIGHT(RTRIM(Number), 1)
 update SouthMonday set Sub1 = SUBSTRING(SubNumber, 1, 1)
 update SouthMonday set XC = 1 WHERE LEN(Number) = 3

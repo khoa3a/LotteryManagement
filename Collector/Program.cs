@@ -17,10 +17,11 @@ class Program
 
     private static NorthMondayRepository northMondayRepo;
     private static NorthTuesdayRepository northTuesdayRepo;
+    private static NorthWednesdayRepository northWednesdayRepo;
     private static NorthThursdayRepository northThursdayRepo;
 
-    public static int WEEK_COUNT = 24;
-    public static bool NORTH_DATA = false;
+    public static int WEEK_COUNT = 260;
+    public static bool NORTH_DATA = true;
 
     static void Main()
     {
@@ -72,6 +73,7 @@ class Program
 
         northMondayRepo = RepositoryFactory.GetNorthMondayRepo();
         northTuesdayRepo = RepositoryFactory.GetNorthTuesdayRepo();
+        northWednesdayRepo = RepositoryFactory.GetNorthWednesdayRepo();
         northThursdayRepo = RepositoryFactory.GetNorthThursdayRepo();
     }
 
@@ -86,10 +88,10 @@ class Program
                     {
                         DateKey = x.DateKey,
                         Name = x.Name,
-                        Number = x.Number,
-                        Sub2Number = x.Sub2Number,
-                        Sub3Number = x.Sub3Number,
-                        Sub4Number = x.Sub4Number,
+                        Number = x.Number.Trim(),
+                        Sub2Number = x.Sub2Number.Trim(),
+                        Sub3Number = x.Sub3Number.Trim(),
+                        Sub4Number = x.Sub4Number.Trim(),
                         Sub1 = x.Sub1,
                         Sub2 = x.Sub2,
                         Sub3 = x.Sub3,
@@ -104,10 +106,13 @@ class Program
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
-                        Sub0 = x.Sub0,
+                        Sub2Number = x.Sub2Number,
+                        Sub3Number = x.Sub3Number,
+                        Sub4Number = x.Sub4Number,
                         Sub1 = x.Sub1,
                         Sub2 = x.Sub2,
+                        Sub3 = x.Sub3,
+                        Sub4 = x.Sub4,
                     }).ToList();
                     await mondayRepo.InsertMany(southMondayEntities);
                 }
@@ -120,10 +125,10 @@ class Program
                     {
                         DateKey = x.DateKey,
                         Name = x.Name,
-                        Number = x.Number,
-                        Sub2Number = x.Sub2Number,
-                        Sub3Number = x.Sub3Number,
-                        Sub4Number = x.Sub4Number,
+                        Number = x.Number.Trim(),
+                        Sub2Number = x.Sub2Number.Trim(),
+                        Sub3Number = x.Sub3Number.Trim(),
+                        Sub4Number = x.Sub4Number.Trim(),
                         Sub1 = x.Sub1,
                         Sub2 = x.Sub2,
                         Sub3 = x.Sub3,
@@ -138,26 +143,52 @@ class Program
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
-                        Sub0 = x.Sub0,
+                        Sub2Number = x.Sub2Number,
+                        Sub3Number = x.Sub3Number,
+                        Sub4Number = x.Sub4Number,
                         Sub1 = x.Sub1,
                         Sub2 = x.Sub2,
+                        Sub3 = x.Sub3,
+                        Sub4 = x.Sub4,
                     }).ToList();
                     await tuesdayRepo.InsertMany(southTuesdayEntities);
                 }
                 break;
             case DayOfWeek.Wednesday:
-                List<SouthWednesdayEntity> southWednesdayEntities = numbers.Select(x => new SouthWednesdayEntity
+                if (NORTH_DATA)
                 {
-                    DateKey = x.DateKey,
-                    Name = x.Name,
-                    Number = x.Number,
-                    SubNumber = x.SubNumber,
-                    Sub0 = x.Sub0,
-                    Sub1 = x.Sub1,
-                    Sub2 = x.Sub2,
-                }).ToList();
-                await wednesdayRepo.InsertMany(southWednesdayEntities);
+                    List<NorthWednesdayEntity> northWednesdayEntities = numbers.Select(x => new NorthWednesdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number.Trim(),
+                        Sub2Number = x.Sub2Number.Trim(),
+                        Sub3Number = x.Sub3Number.Trim(),
+                        Sub4Number = x.Sub4Number.Trim(),
+                        Sub1 = x.Sub1,
+                        Sub2 = x.Sub2,
+                        Sub3 = x.Sub3,
+                        Sub4 = x.Sub4,
+                    }).ToList();
+                    await northWednesdayRepo.InsertMany(northWednesdayEntities);
+                }
+                else
+                {
+                    List<SouthWednesdayEntity> southWednesdayEntities = numbers.Select(x => new SouthWednesdayEntity
+                    {
+                        DateKey = x.DateKey,
+                        Name = x.Name,
+                        Number = x.Number,
+                        Sub2Number = x.Sub2Number,
+                        Sub3Number = x.Sub3Number,
+                        Sub4Number = x.Sub4Number,
+                        Sub1 = x.Sub1,
+                        Sub2 = x.Sub2,
+                        Sub3 = x.Sub3,
+                        Sub4 = x.Sub4,
+                    }).ToList();
+                    await wednesdayRepo.InsertMany(southWednesdayEntities);
+                }                
                 break;
             case DayOfWeek.Thursday:
                 if (NORTH_DATA)
@@ -184,10 +215,13 @@ class Program
                         DateKey = x.DateKey,
                         Name = x.Name,
                         Number = x.Number,
-                        SubNumber = x.SubNumber,
-                        Sub0 = x.Sub0,
+                        Sub2Number = x.Sub2Number,
+                        Sub3Number = x.Sub3Number,
+                        Sub4Number = x.Sub4Number,
                         Sub1 = x.Sub1,
                         Sub2 = x.Sub2,
+                        Sub3 = x.Sub3,
+                        Sub4 = x.Sub4,
                     }).ToList();
                     await thursdayRepo.InsertMany(southThursdayEntities);
                 }
@@ -198,11 +232,14 @@ class Program
                 {
                     DateKey = x.DateKey,
                     Name = x.Name,
-                    Number = x.Number,
-                    SubNumber = x.SubNumber,
-                    Sub0 = x.Sub0,
+                    Number = x.Number.Trim(),
+                    Sub2Number = x.Sub2Number.Trim(),
+                    Sub3Number = x.Sub3Number.Trim(),
+                    Sub4Number = x.Sub4Number.Trim(),
                     Sub1 = x.Sub1,
                     Sub2 = x.Sub2,
+                    Sub3 = x.Sub3,
+                    Sub4 = x.Sub4,
                 }).ToList();
                 await fridayRepo.InsertMany(southFridayEntities);
                 break;
@@ -212,10 +249,13 @@ class Program
                     DateKey = x.DateKey,
                     Name = x.Name,
                     Number = x.Number,
-                    SubNumber = x.SubNumber,
-                    Sub0 = x.Sub0,
+                    Sub2Number = x.Sub2Number,
+                    Sub3Number = x.Sub3Number,
+                    Sub4Number = x.Sub4Number,
                     Sub1 = x.Sub1,
                     Sub2 = x.Sub2,
+                    Sub3 = x.Sub3,
+                    Sub4 = x.Sub4,
                 }).ToList();
                 await saturdayRepo.InsertMany(southSaturdayEntities);
                 break;
@@ -225,10 +265,13 @@ class Program
                     DateKey = x.DateKey,
                     Name = x.Name,
                     Number = x.Number,
-                    SubNumber = x.SubNumber,
-                    Sub0 = x.Sub0,
+                    Sub2Number = x.Sub2Number,
+                    Sub3Number = x.Sub3Number,
+                    Sub4Number = x.Sub4Number,
                     Sub1 = x.Sub1,
                     Sub2 = x.Sub2,
+                    Sub3 = x.Sub3,
+                    Sub4 = x.Sub4,
                 }).ToList();
                 await sundayRepo.InsertMany(southSundayEntities);
                 break;
@@ -269,8 +312,8 @@ class Program
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
                     Name = "MB",
-                    Number = data,
-                    Sub2Number = data,
+                    Number = data.Trim(),
+                    Sub2Number = data.Trim(),
                     Sub3 = chars[0].ToString(),
                     Sub4 = chars[1].ToString(),
                 });
@@ -281,9 +324,9 @@ class Program
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
                     Name = "MB",
-                    Number = data,
+                    Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
-                    Sub3Number = data,
+                    Sub3Number = data.Trim(),
                     Sub1 = chars[len - 3].ToString(),
                     Sub2 = chars[len - 2].ToString(),
                     Sub3 = chars[len - 1].ToString(),
@@ -295,10 +338,10 @@ class Program
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
                     Name = "MB",
-                    Number = data,
+                    Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                    Sub4Number = data,
+                    Sub4Number = data.Trim(),
                     Sub1 = chars[len - 4].ToString(),
                     Sub2 = chars[len - 3].ToString(),
                     Sub3 = chars[len - 2].ToString(),
@@ -311,10 +354,10 @@ class Program
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
                     Name = "MB",
-                    Number = data,
+                    Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                    Sub4Number = data,
+                    Sub4Number = data.Trim(),
                     Sub1 = chars[len - 4].ToString(),
                     Sub2 = chars[len - 3].ToString(),
                     Sub3 = chars[len - 2].ToString(),
@@ -327,7 +370,7 @@ class Program
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
                     Name = "MB",
-                    Number = data,
+                    Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                     Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
@@ -370,106 +413,247 @@ class Program
             }
 
             var numbers1 = number1.Split('-');
-            foreach (var n1 in numbers1)
+            foreach (var data1 in numbers1)
             {
-                var No1 = n1.Trim();
-                var SubNo1 = No1.ToCharArray();
+                var chars = data1.Trim().ToCharArray();
+                var len = chars.Length;
 
-                if (SubNo1.Length > 2)
+                if (len == 2)
                 {
-                    var lastThree1 = SubNo1.Skip(Math.Max(0, SubNo1.Length - 3)).ToArray();
-                    var len1 = SubNo1.Length;
                     result.Add(new NumberModel
                     {
-                        DateKey = dateKey,
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
                         Name = name1,
-                        Number = No1,
-                        SubNumber = $"{SubNo1[len1 - 2]}{SubNo1[len1 - 1]}",
-                        Sub0 = lastThree1[0].ToString(),
-                        Sub1 = lastThree1[1].ToString(),
-                        Sub2 = lastThree1[2].ToString(),
+                        Number = data1.Trim(),
+                        Sub2Number = data1.Trim(),
+                        Sub3 = chars[0].ToString(),
+                        Sub4 = chars[1].ToString(),
                     });
                 }
-                else
+                else if (len == 3)
                 {
                     result.Add(new NumberModel
                     {
-                        DateKey = dateKey,
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
                         Name = name1,
-                        Number = No1,
-                        SubNumber = $"{SubNo1[0]}{SubNo1[1]}",
-                        Sub1 = SubNo1[0].ToString(),
-                        Sub2 = SubNo1[1].ToString(),
+                        Number = data1.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = data1.Trim(),
+                        Sub1 = chars[len - 3].ToString(),
+                        Sub2 = chars[len - 2].ToString(),
+                        Sub3 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len == 3)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name1,
+                        Number = data1.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = data1.Trim(),
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len == 4)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name1,
+                        Number = data1.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = data1.Trim(),
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len >= 5)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name1,
+                        Number = data1.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
                     });
                 }
             }
 
             var numbers2 = number2.Split('-');
-            foreach (var n2 in numbers2)
+            foreach (var data2 in numbers2)
             {
-                var No2 = n2.Trim();
-                var SubNo2 = No2.ToCharArray();
-                var len2 = SubNo2.Length;
+                var chars = data2.Trim().ToCharArray();
+                var len = chars.Length;
 
-                if (SubNo2.Length > 2)
+                if (len == 2)
                 {
-                    var lastThree2 = SubNo2.Skip(Math.Max(0, SubNo2.Length - 3)).ToArray();
                     result.Add(new NumberModel
                     {
-                        DateKey = dateKey,
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
                         Name = name2,
-                        Number = No2,
-                        SubNumber = $"{SubNo2[len2 - 2]}{SubNo2[len2 - 1]}",
-                        Sub0 = lastThree2[0].ToString(),
-                        Sub1 = lastThree2[1].ToString(),
-                        Sub2 = lastThree2[2].ToString(),
+                        Number = data2.Trim(),
+                        Sub2Number = data2.Trim(),
+                        Sub3 = chars[0].ToString(),
+                        Sub4 = chars[1].ToString(),
                     });
                 }
-                else
+                else if (len == 3)
                 {
                     result.Add(new NumberModel
                     {
-                        DateKey = dateKey,
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
                         Name = name2,
-                        Number = No2,
-                        SubNumber = $"{SubNo2[0]}{SubNo2[1]}",
-                        Sub1 = SubNo2[0].ToString(),
-                        Sub2 = SubNo2[1].ToString(),
+                        Number = data2.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = data2.Trim(),
+                        Sub1 = chars[len - 3].ToString(),
+                        Sub2 = chars[len - 2].ToString(),
+                        Sub3 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len == 3)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name2,
+                        Number = data2.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = data2.Trim(),
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len == 4)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name2,
+                        Number = data2.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = data2.Trim(),
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len >= 5)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name2,
+                        Number = data2.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
                     });
                 }
             }
 
             var numbers3 = number3.Split('-');
-            foreach (var n3 in numbers3)
+            foreach (var data3 in numbers3)
             {
-                var No3 = n3.Trim();
-                var SubNo3 = No3.ToCharArray();
-                var len3 = SubNo3.Length;
+                var chars = data3.Trim().ToCharArray();
+                var len = chars.Length;
 
-                if (SubNo3.Length > 2)
+                if (len == 2)
                 {
-                    var lastThree3 = SubNo3.Skip(Math.Max(0, SubNo3.Length - 3)).ToArray();
                     result.Add(new NumberModel
                     {
-                        DateKey = dateKey,
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
                         Name = name3,
-                        Number = No3,
-                        SubNumber = $"{SubNo3[len3 - 2]}{SubNo3[len3 - 1]}",
-                        Sub0 = lastThree3[0].ToString(),
-                        Sub1 = lastThree3[1].ToString(),
-                        Sub2 = lastThree3[2].ToString(),
+                        Number = data3.Trim(),
+                        Sub2Number = data3.Trim(),
+                        Sub3 = chars[0].ToString(),
+                        Sub4 = chars[1].ToString(),
                     });
                 }
-                else
+                else if (len == 3)
                 {
                     result.Add(new NumberModel
                     {
-                        DateKey = dateKey,
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
                         Name = name3,
-                        Number = No3,
-                        SubNumber = $"{SubNo3[0]}{SubNo3[1]}",
-                        Sub1 = SubNo3[0].ToString(),
-                        Sub2 = SubNo3[1].ToString(),
+                        Number = data3.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = data3.Trim(),
+                        Sub1 = chars[len - 3].ToString(),
+                        Sub2 = chars[len - 2].ToString(),
+                        Sub3 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len == 3)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name3,
+                        Number = data3.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = data3.Trim(),
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len == 4)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name3,
+                        Number = data3.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = data3.Trim(),
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
+                    });
+                }
+                else if (len >= 5)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name3,
+                        Number = data3.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub1 = chars[len - 4].ToString(),
+                        Sub2 = chars[len - 3].ToString(),
+                        Sub3 = chars[len - 2].ToString(),
+                        Sub4 = chars[len - 1].ToString(),
                     });
                 }
             }
@@ -477,36 +661,83 @@ class Program
             if (!string.IsNullOrEmpty(number4))
             {
                 var numbers4 = number4.Split('-');
-                foreach (var n4 in numbers4)
+                foreach (var data4 in numbers4)
                 {
-                    var No4 = n4.Trim();
-                    var SubNo4 = No4.ToCharArray();
-                    var len4 = SubNo4.Length;
+                    var chars = data4.Trim().ToCharArray();
+                    var len = chars.Length;
 
-                    if (SubNo4.Length > 2)
+                    if (len == 2)
                     {
-                        var lastThree4 = SubNo4.Skip(Math.Max(0, SubNo4.Length - 3)).ToArray();
                         result.Add(new NumberModel
                         {
-                            DateKey = dateKey,
+                            DateKey = currentDate.ToString("dd-MM-yyyy"),
                             Name = name4,
-                            Number = No4,
-                            SubNumber = $"{SubNo4[len4 - 2]}{SubNo4[len4 - 1]}",
-                            Sub0 = lastThree4[0].ToString(),
-                            Sub1 = lastThree4[1].ToString(),
-                            Sub2 = lastThree4[2].ToString(),
+                            Number = data4.Trim(),
+                            Sub2Number = data4.Trim(),
+                            Sub3 = chars[0].ToString(),
+                            Sub4 = chars[1].ToString(),
                         });
                     }
-                    else
+                    else if (len == 3)
                     {
                         result.Add(new NumberModel
                         {
-                            DateKey = dateKey,
+                            DateKey = currentDate.ToString("dd-MM-yyyy"),
                             Name = name4,
-                            Number = No4,
-                            SubNumber = $"{SubNo4[0]}{SubNo4[1]}",
-                            Sub1 = SubNo4[0].ToString(),
-                            Sub2 = SubNo4[1].ToString(),
+                            Number = data4.Trim(),
+                            Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                            Sub3Number = data4.Trim(),
+                            Sub1 = chars[len - 3].ToString(),
+                            Sub2 = chars[len - 2].ToString(),
+                            Sub3 = chars[len - 1].ToString(),
+                        });
+                    }
+                    else if (len == 3)
+                    {
+                        result.Add(new NumberModel
+                        {
+                            DateKey = currentDate.ToString("dd-MM-yyyy"),
+                            Name = name4,
+                            Number = data4.Trim(),
+                            Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                            Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                            Sub4Number = data4.Trim(),
+                            Sub1 = chars[len - 4].ToString(),
+                            Sub2 = chars[len - 3].ToString(),
+                            Sub3 = chars[len - 2].ToString(),
+                            Sub4 = chars[len - 1].ToString(),
+                        });
+                    }
+                    else if (len == 4)
+                    {
+                        result.Add(new NumberModel
+                        {
+                            DateKey = currentDate.ToString("dd-MM-yyyy"),
+                            Name = name4,
+                            Number = data4.Trim(),
+                            Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                            Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                            Sub4Number = data4.Trim(),
+                            Sub1 = chars[len - 4].ToString(),
+                            Sub2 = chars[len - 3].ToString(),
+                            Sub3 = chars[len - 2].ToString(),
+                            Sub4 = chars[len - 1].ToString(),
+                        });
+                    }
+                    else if (len >= 5)
+                    {
+                        result.Add(new NumberModel
+                        {
+                            DateKey = currentDate.ToString("dd-MM-yyyy"),
+                            Name = name4,
+                            Number = data4.Trim(),
+                            Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                            Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                            Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                            Sub1 = chars[len - 4].ToString(),
+                            Sub2 = chars[len - 3].ToString(),
+                            Sub3 = chars[len - 2].ToString(),
+                            Sub4 = chars[len - 1].ToString(),
                         });
                     }
                 }
