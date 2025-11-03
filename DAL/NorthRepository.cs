@@ -11,15 +11,15 @@ namespace DAL
         {
             _baseQuery = _dbContext.Set<NorthEntity>().AsNoTracking();
 
-            //if (!string.IsNullOrEmpty(criteria.DateKey))
-            //{
-            //    _baseQuery = _baseQuery.Where(x => x.DateKey == criteria.DateKey);
-            //}
+            _baseQuery = _baseQuery.Where(x => x.Sub4Number != null);
 
-            //if (criteria.DayOfWeek != null)
-            //{
-            //    _baseQuery = _baseQuery.Where(x => x.DayOfWeek == criteria.DayOfWeek.Value);
-            //}
+            if (criteria.Subs.SafeAny())
+            {
+                _baseQuery = _baseQuery.Where(x => criteria.Subs.Contains(x.Sub1) &&
+                                                   criteria.Subs.Contains(x.Sub2) &&
+                                                   criteria.Subs.Contains(x.Sub3) &&
+                                                   criteria.Subs.Contains(x.Sub4));
+            }
 
             return _baseQuery;
         }

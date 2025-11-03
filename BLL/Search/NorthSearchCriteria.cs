@@ -2,5 +2,6 @@
 {
     public class NorthSearchCriteria : SearchCriteria
     {
+        public List<int> Subs { get; set; }
     }
 }

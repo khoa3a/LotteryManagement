@@ -377,8 +377,8 @@ class Program
                     Name = "MB",
                     Number = data.Trim(),
                     Sub2Number = data.Trim(),
-                    Sub3 = chars[0].ToString(),
-                    Sub4 = chars[1].ToString(),
+                    Sub3 = Convert.ToInt32(chars[0]),
+                    Sub4 = Convert.ToInt32(chars[1]),
                 });
             }
             else if (len == 3)
@@ -394,9 +394,9 @@ class Program
                     Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = data.Trim(),
-                    Sub1 = chars[len - 3].ToString(),
-                    Sub2 = chars[len - 2].ToString(),
-                    Sub3 = chars[len - 1].ToString(),
+                    Sub1 = Convert.ToInt32(chars[len - 3]),
+                    Sub2 = Convert.ToInt32(chars[len - 2]),
+                    Sub3 = Convert.ToInt32(chars[len - 1]),
                 });
             }
             else if (len == 4)
@@ -413,10 +413,10 @@ class Program
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                     Sub4Number = data.Trim(),
-                    Sub1 = chars[len - 4].ToString(),
-                    Sub2 = chars[len - 3].ToString(),
-                    Sub3 = chars[len - 2].ToString(),
-                    Sub4 = chars[len - 1].ToString(),
+                    Sub1 = Convert.ToInt32(chars[len - 4]),
+                    Sub2 = Convert.ToInt32(chars[len - 3]),
+                    Sub3 = Convert.ToInt32(chars[len - 2]),
+                    Sub4 = Convert.ToInt32(chars[len - 1]),
                 });
             }
             else if (len == 5)
@@ -433,10 +433,10 @@ class Program
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                     Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                    Sub1 = chars[len - 4].ToString(),
-                    Sub2 = chars[len - 3].ToString(),
-                    Sub3 = chars[len - 2].ToString(),
-                    Sub4 = chars[len - 1].ToString(),
+                    Sub1 = Convert.ToInt32(chars[len - 4]),
+                    Sub2 = Convert.ToInt32(chars[len - 3]),
+                    Sub3 = Convert.ToInt32(chars[len - 2]),
+                    Sub4 = Convert.ToInt32(chars[len - 1]),
                 });
             }            
         }
@@ -485,8 +485,8 @@ class Program
                         Name = name1,
                         Number = data1.Trim(),
                         Sub2Number = data1.Trim(),
-                        Sub3 = chars[0].ToString(),
-                        Sub4 = chars[1].ToString(),
+                        Sub3 = Convert.ToInt32(chars[0]),
+                        Sub4 = Convert.ToInt32(chars[1]),
                     });
                 }
                 else if (len == 3)
@@ -498,9 +498,9 @@ class Program
                         Number = data1.Trim(),
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = data1.Trim(),
-                        Sub1 = chars[len - 3].ToString(),
-                        Sub2 = chars[len - 2].ToString(),
-                        Sub3 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 3]),
+                        Sub2 = Convert.ToInt32(chars[len - 2]),
+                        Sub3 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len == 3)
@@ -513,10 +513,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data1.Trim(),
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len == 4)
@@ -529,10 +529,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data1.Trim(),
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len >= 5)
@@ -545,10 +545,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
             }
@@ -567,8 +567,8 @@ class Program
                         Name = name2,
                         Number = data2.Trim(),
                         Sub2Number = data2.Trim(),
-                        Sub3 = chars[0].ToString(),
-                        Sub4 = chars[1].ToString(),
+                        Sub3 = Convert.ToInt32(chars[0]),
+                        Sub4 = Convert.ToInt32(chars[1]),
                     });
                 }
                 else if (len == 3)
@@ -580,9 +580,9 @@ class Program
                         Number = data2.Trim(),
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = data2.Trim(),
-                        Sub1 = chars[len - 3].ToString(),
-                        Sub2 = chars[len - 2].ToString(),
-                        Sub3 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 3]),
+                        Sub2 = Convert.ToInt32(chars[len - 2]),
+                        Sub3 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len == 3)
@@ -595,10 +595,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data2.Trim(),
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len == 4)
@@ -611,10 +611,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data2.Trim(),
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len >= 5)
@@ -627,10 +627,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
             }
@@ -649,8 +649,8 @@ class Program
                         Name = name3,
                         Number = data3.Trim(),
                         Sub2Number = data3.Trim(),
-                        Sub3 = chars[0].ToString(),
-                        Sub4 = chars[1].ToString(),
+                        Sub3 = Convert.ToInt32(chars[0]),
+                        Sub4 = Convert.ToInt32(chars[1]),
                     });
                 }
                 else if (len == 3)
@@ -662,9 +662,9 @@ class Program
                         Number = data3.Trim(),
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = data3.Trim(),
-                        Sub1 = chars[len - 3].ToString(),
-                        Sub2 = chars[len - 2].ToString(),
-                        Sub3 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 3]),
+                        Sub2 = Convert.ToInt32(chars[len - 2]),
+                        Sub3 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len == 3)
@@ -677,10 +677,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data3.Trim(),
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len == 4)
@@ -693,10 +693,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data3.Trim(),
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
                 else if (len >= 5)
@@ -709,10 +709,10 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub1 = chars[len - 4].ToString(),
-                        Sub2 = chars[len - 3].ToString(),
-                        Sub3 = chars[len - 2].ToString(),
-                        Sub4 = chars[len - 1].ToString(),
+                        Sub1 = Convert.ToInt32(chars[len - 4]),
+                        Sub2 = Convert.ToInt32(chars[len - 3]),
+                        Sub3 = Convert.ToInt32(chars[len - 2]),
+                        Sub4 = Convert.ToInt32(chars[len - 1]),
                     });
                 }
             }
@@ -733,8 +733,8 @@ class Program
                             Name = name4,
                             Number = data4.Trim(),
                             Sub2Number = data4.Trim(),
-                            Sub3 = chars[0].ToString(),
-                            Sub4 = chars[1].ToString(),
+                            Sub3 = Convert.ToInt32(chars[0]),
+                            Sub4 = Convert.ToInt32(chars[1]),
                         });
                     }
                     else if (len == 3)
@@ -746,9 +746,9 @@ class Program
                             Number = data4.Trim(),
                             Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                             Sub3Number = data4.Trim(),
-                            Sub1 = chars[len - 3].ToString(),
-                            Sub2 = chars[len - 2].ToString(),
-                            Sub3 = chars[len - 1].ToString(),
+                            Sub1 = Convert.ToInt32(chars[len - 3]),
+                            Sub2 = Convert.ToInt32(chars[len - 2]),
+                            Sub3 = Convert.ToInt32(chars[len - 1]),
                         });
                     }
                     else if (len == 3)
@@ -761,10 +761,10 @@ class Program
                             Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                             Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                             Sub4Number = data4.Trim(),
-                            Sub1 = chars[len - 4].ToString(),
-                            Sub2 = chars[len - 3].ToString(),
-                            Sub3 = chars[len - 2].ToString(),
-                            Sub4 = chars[len - 1].ToString(),
+                            Sub1 = Convert.ToInt32(chars[len - 4]),
+                            Sub2 = Convert.ToInt32(chars[len - 3]),
+                            Sub3 = Convert.ToInt32(chars[len - 2]),
+                            Sub4 = Convert.ToInt32(chars[len - 1]),
                         });
                     }
                     else if (len == 4)
@@ -777,10 +777,10 @@ class Program
                             Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                             Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                             Sub4Number = data4.Trim(),
-                            Sub1 = chars[len - 4].ToString(),
-                            Sub2 = chars[len - 3].ToString(),
-                            Sub3 = chars[len - 2].ToString(),
-                            Sub4 = chars[len - 1].ToString(),
+                            Sub1 = Convert.ToInt32(chars[len - 4]),
+                            Sub2 = Convert.ToInt32(chars[len - 3]),
+                            Sub3 = Convert.ToInt32(chars[len - 2]),
+                            Sub4 = Convert.ToInt32(chars[len - 1]),
                         });
                     }
                     else if (len >= 5)
@@ -793,10 +793,10 @@ class Program
                             Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                             Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                             Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                            Sub1 = chars[len - 4].ToString(),
-                            Sub2 = chars[len - 3].ToString(),
-                            Sub3 = chars[len - 2].ToString(),
-                            Sub4 = chars[len - 1].ToString(),
+                            Sub1 = Convert.ToInt32(chars[len - 4]),
+                            Sub2 = Convert.ToInt32(chars[len - 3]),
+                            Sub3 = Convert.ToInt32(chars[len - 2]),
+                            Sub4 = Convert.ToInt32(chars[len - 1]),
                         });
                     }
                 }
