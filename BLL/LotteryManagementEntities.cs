@@ -17,6 +17,8 @@ namespace BLL
         public virtual DbSet<SouthSaturdayEntity> SouthSaturdayEntities { get; set; }
         public virtual DbSet<SouthSundayEntity> SouthSundayEntities { get; set; }
 
+        
+        public virtual DbSet<NorthEntity> NorthEntities { get; set; }
         public virtual DbSet<NorthMondayEntity> NorthMondayEntities { get; set; }
         public virtual DbSet<NorthTuesdayEntity> NorthTuesdayEntities { get; set; }
         public virtual DbSet<NorthWednesdayEntity> NorthWednesdayEntities { get; set; }

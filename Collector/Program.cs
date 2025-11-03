@@ -15,13 +15,16 @@ class Program
     private static SouthSaturdayRepository saturdayRepo;
     private static SouthSundayRepository sundayRepo;
 
+    private static NorthRepository northRepo;
     private static NorthMondayRepository northMondayRepo;
     private static NorthTuesdayRepository northTuesdayRepo;
     private static NorthWednesdayRepository northWednesdayRepo;
     private static NorthThursdayRepository northThursdayRepo;
 
-    public static int WEEK_COUNT = 260;
     public static bool NORTH_DATA = true;
+    public static int WEEK_COUNT = 260; // 5 years (52 x 5)
+    public static int DAY_COUNT = 1825; // 5 years (365 x 5)
+
 
     static void Main()
     {
@@ -29,12 +32,17 @@ class Program
 
         Console.WriteLine("Collector started...");
 
-        var currentDate = DateTime.Now.AddDays(-7);
+        var subtract = NORTH_DATA ? -1 : -7;
+
+        var currentDate = DateTime.Now.AddDays(subtract);
 
         List<NumberModel> allNumbers = new List<NumberModel>();
 
+        var count = NORTH_DATA ? DAY_COUNT : WEEK_COUNT;
+        //test
+        //count = 1;
 
-        for (int i = 0; i < WEEK_COUNT; i++)
+        for (int i = 0; i < count; i++)
         {
             var dateKey = AppUtils.ToDateKey(currentDate);
 
@@ -53,7 +61,9 @@ class Program
 
             allNumbers.AddRange(numbers);
 
-            currentDate = currentDate.AddDays(-7);
+
+
+            currentDate = currentDate.AddDays(subtract);
         }
 
         SaveData(currentDate.DayOfWeek, allNumbers).GetAwaiter().GetResult();
@@ -71,6 +81,7 @@ class Program
         saturdayRepo = RepositoryFactory.GetSouthSaturdayRepo();
         sundayRepo = RepositoryFactory.GetSouthSundayRepo();
 
+        northRepo = RepositoryFactory.GetNorthRepo();
         northMondayRepo = RepositoryFactory.GetNorthMondayRepo();
         northTuesdayRepo = RepositoryFactory.GetNorthTuesdayRepo();
         northWednesdayRepo = RepositoryFactory.GetNorthWednesdayRepo();
@@ -79,6 +90,54 @@ class Program
 
     private static async Task SaveData(DayOfWeek dayOfWeek, List<NumberModel> numbers)
     {
+        if (NORTH_DATA)
+        {
+            //List<NorthEntity> northEntities = new List<NorthEntity>();
+
+            //foreach (var num in numbers)
+            //{ 
+            //    var northEntity = new NorthEntity();
+
+            //    northEntity.Date = num.Date;
+            //    northEntity.Number = num.Number.Trim();
+            //    northEntity.Name = num.Name;
+            //    northEntity.Day = num.Day;
+            //    northEntity.Month = num.Month;
+            //    northEntity.Year = num.Year;
+            //    northEntity.Sub1 = num.Sub1;
+            //    northEntity.Sub2 = num.Sub2;
+            //    northEntity.Sub3 = num.Sub3;
+            //    northEntity.Sub4 = num.Sub4;
+            //    northEntity.Sub2Number = num.Sub2Number;
+            //    northEntity.Sub3Number = num.Sub3Number;
+            //    northEntity.Sub4Number = num.Sub4Number;
+
+            //    northEntities.Add(northEntity);
+            //}
+
+            //await northRepo.InsertMany(northEntities);
+
+            List<NorthEntity> northEntities = numbers.Select(x => new NorthEntity
+            {
+                Date = x.Date,
+                Day = x.Day,
+                Month = x.Month,
+                Year = x.Year,
+                Name = x.Name,
+                Number = x.Number,
+                Sub2Number = x.Sub2Number,
+                Sub3Number = x.Sub3Number,
+                Sub4Number = x.Sub4Number,
+                Sub1 = x.Sub1,
+                Sub2 = x.Sub2,
+                Sub3 = x.Sub3,
+                Sub4 = x.Sub4,
+            }).ToList();
+            await northRepo.InsertMany(northEntities);
+
+            return;
+        }
+
         switch (dayOfWeek)
         {
             case DayOfWeek.Monday:
@@ -188,7 +247,7 @@ class Program
                         Sub4 = x.Sub4,
                     }).ToList();
                     await wednesdayRepo.InsertMany(southWednesdayEntities);
-                }                
+                }
                 break;
             case DayOfWeek.Thursday:
                 if (NORTH_DATA)
@@ -311,6 +370,10 @@ class Program
                 result.Add(new NumberModel
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Date = currentDate,
+                    Day = currentDate.Day,
+                    Month = currentDate.Month,
+                    Year = currentDate.Year,
                     Name = "MB",
                     Number = data.Trim(),
                     Sub2Number = data.Trim(),
@@ -323,6 +386,10 @@ class Program
                 result.Add(new NumberModel
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Date = currentDate,
+                    Day = currentDate.Day,
+                    Month = currentDate.Month,
+                    Year = currentDate.Year,
                     Name = "MB",
                     Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
@@ -332,27 +399,15 @@ class Program
                     Sub3 = chars[len - 1].ToString(),
                 });
             }
-            else if (len == 3)
-            {
-                result.Add(new NumberModel
-                {
-                    DateKey = currentDate.ToString("dd-MM-yyyy"),
-                    Name = "MB",
-                    Number = data.Trim(),
-                    Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
-                    Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                    Sub4Number = data.Trim(),
-                    Sub1 = chars[len - 4].ToString(),
-                    Sub2 = chars[len - 3].ToString(),
-                    Sub3 = chars[len - 2].ToString(),
-                    Sub4 = chars[len - 1].ToString(),
-                });
-            }
             else if (len == 4)
             {
                 result.Add(new NumberModel
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Date = currentDate,
+                    Day = currentDate.Day,
+                    Month = currentDate.Month,
+                    Year = currentDate.Year,
                     Name = "MB",
                     Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
@@ -369,6 +424,10 @@ class Program
                 result.Add(new NumberModel
                 {
                     DateKey = currentDate.ToString("dd-MM-yyyy"),
+                    Date = currentDate,
+                    Day = currentDate.Day,
+                    Month = currentDate.Month,
+                    Year = currentDate.Year,
                     Name = "MB",
                     Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
@@ -379,7 +438,7 @@ class Program
                     Sub3 = chars[len - 2].ToString(),
                     Sub4 = chars[len - 1].ToString(),
                 });
-            }
+            }            
         }
 
         return result;

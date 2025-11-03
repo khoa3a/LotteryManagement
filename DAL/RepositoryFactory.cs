@@ -37,6 +37,11 @@
             return new SouthSundayRepository();
         }
 
+        public static NorthRepository GetNorthRepo()
+        {
+            return new NorthRepository();
+        }
+
         public static NorthMondayRepository GetNorthMondayRepo()
         {
             return new NorthMondayRepository();
