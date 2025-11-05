@@ -16,6 +16,23 @@ SELECT [Id]
 
 GO
 
+select * from SouthWednesday
+
+select * from North where len(number)=3
+order by Date desc
+
+update North set sub2=sub1, sub3=sub2, sub4=sub3 where Sub4 is null
+
+update North set sub1=null where Sub4number is null and Sub1 is not null
+update North set sub2=null where Sub3number is null and Sub4number is null and Sub2 is not null
+
+select * from north nolock
+order by Date desc
+where Sub4number is null
+
+delete from North where Date>'2025-11-03 01:00:18.063'
+
+--truncate table SouthWednesday
 
 select sub4number from NorthTuesday where Sub4Number is not null
 
@@ -68,3 +85,8 @@ GROUP BY sub3number, Datekey
 HAVING Sub3Number is not null-- and (Sub4Number like '%09' or Sub4Number like '%90')
 ORDER BY Frequency DESC;
 GO
+
+
+select * from North order by date desc
+
+--delete from north where id>49275

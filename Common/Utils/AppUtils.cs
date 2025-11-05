@@ -27,6 +27,19 @@ namespace Common.Utils
             }
         }
 
+        public static DateTime RefineSearchDate(DateTime searchDate, bool fromDate)
+        {
+            var actualDate = searchDate.AddDays(fromDate ? -1 : 1);
+            var year = actualDate.Year;
+            var month = actualDate.Month;
+            var day = actualDate.Day;
+            var hour = fromDate ? 23 : 0;
+            var minute = fromDate ? 59 : 0;
+            var second = fromDate ? 59 : 0;
+
+            return new DateTime(year, month, day, hour, minute, second);
+        }
+
         //todo MienBac
         // 1. Get data history 4 numbers
         // 2. ask AI to predict the next 4 numbers

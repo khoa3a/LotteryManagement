@@ -1,15 +1,13 @@
 ﻿using BLL;
-using BLL.Entities;
 using BLL.Search;
 using DAL;
-using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace LM
 {
     public partial class LinearRegressionForm : Form
-    { 
+    {
 
         private NorthRepository northRepo;
 
@@ -21,7 +19,7 @@ namespace LM
 
             InitializeEvent();
 
-            InitializeData();            
+            InitializeData();
         }
 
         private void InitializeEvent()
@@ -38,6 +36,9 @@ namespace LM
             PopulateComboBox(comboBoxSub2, data);
             PopulateComboBox(comboBoxSub3, data);
             PopulateComboBox(comboBoxSub4, data);
+
+            //dateTimePickerFrom.Value = new DateTime(DateTime.Now.Year, 1, 1);
+            dateTimePickerFrom.Value = DateTime.Now.AddMonths(-6);
         }
 
         private void PopulateComboBox(ComboBox comboBox, List<int> models, bool addDefaultItem = true)
@@ -72,7 +73,9 @@ namespace LM
             //comboBox.DisplayMember = "Name";
             //comboBox.ValueMember = "Value";
             //comboBox.DataSource = items;
-        }        
+
+            comboBox.SelectedIndex = 1;
+        }
 
         private (double slope, double intercept) CalculateLinearRegression(List<double> xValues, List<double> yValues)
         {
@@ -94,7 +97,10 @@ namespace LM
             //{
             //    Subs = [1,3,7]
             //};
-            var listNumbers = northRepo.SearchAll(criteria).Select(x=>x.Sub4Number).ToList();
+
+
+
+            var listNumbers = northRepo.SearchAll(criteria).Select(x => x.Sub4Number).ToList();
 
             Dictionary<string, int> result = listNumbers
                                     .GroupBy(x => x)
@@ -103,13 +109,48 @@ namespace LM
             return result;
         }
 
+        private NorthSearchCriteria GetSearchCriteria()
+        {
+            List<int?> subs = new List<int?>();
+
+            int sub = Convert.ToInt32(comboBoxSub1.SelectedItem);
+            if (sub >= 0)
+            {
+                subs.Add(sub);
+            }
+
+            sub = Convert.ToInt32(comboBoxSub2.SelectedItem);
+            if (sub >= 0)
+            {
+                subs.Add(sub);
+            }
+
+            sub = Convert.ToInt32(comboBoxSub3.SelectedItem);
+            if (sub >= 0)
+            {
+                subs.Add(sub);
+            }
+
+            sub = Convert.ToInt32(comboBoxSub4.SelectedItem);
+            if (sub >= 0)
+            {
+                subs.Add(sub);
+            }
+
+            var criteria = new NorthSearchCriteria
+            {
+                Subs = subs,
+                From = dateTimePickerFrom.Value
+            };
+
+            return criteria;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
 
-            var criteria = new NorthSearchCriteria 
-            {
-                Subs = [1,3,4,8]
-            };
+            var criteria = GetSearchCriteria();
+
             var dic = GetNorthData(criteria);
             List<NumberData> list = dic.Select(p => new NumberData { Name = p.Key, Score = p.Value }).ToList();
 
@@ -166,6 +207,7 @@ namespace LM
             // Tạo Chart control
             //var chart = new Chart { Dock = DockStyle.Fill };
             var chartArea = new ChartArea("MainArea");
+            chart1.ChartAreas.Clear();
             chart1.ChartAreas.Add(chartArea);
             //this.Controls.Add(chart1);
 

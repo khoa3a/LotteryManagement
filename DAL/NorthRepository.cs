@@ -2,6 +2,7 @@
 using BLL.Search;
 using BLL;
 using Common;
+using Common.Utils;
 
 namespace DAL
 {
@@ -9,16 +10,39 @@ namespace DAL
     {
         protected override IQueryable<NorthEntity> BuildQuery(NorthSearchCriteria criteria)
         {
-            _baseQuery = _dbContext.Set<NorthEntity>().AsNoTracking();
-
-            _baseQuery = _baseQuery.Where(x => x.Sub4Number != null);
+            _baseQuery = _dbContext.Set<NorthEntity>().AsNoTracking();            
 
             if (criteria.Subs.SafeAny())
             {
-                _baseQuery = _baseQuery.Where(x => criteria.Subs.Contains(x.Sub1) &&
+                _baseQuery = _baseQuery.Where(x => x.Sub4Number != null);
+
+                var count = criteria.Subs.Count();
+                if (count == 4)
+                {
+                    _baseQuery = _baseQuery.Where(x => criteria.Subs.Contains(x.Sub1) &&
                                                    criteria.Subs.Contains(x.Sub2) &&
                                                    criteria.Subs.Contains(x.Sub3) &&
                                                    criteria.Subs.Contains(x.Sub4));
+                }
+                else if (count == 3)
+                {
+                    _baseQuery = _baseQuery.Where(x => 
+                                (criteria.Subs.Contains(x.Sub1) &&  criteria.Subs.Contains(x.Sub2) && criteria.Subs.Contains(x.Sub3)) ||
+                                (criteria.Subs.Contains(x.Sub2) && criteria.Subs.Contains(x.Sub3) && criteria.Subs.Contains(x.Sub4)) ||
+                                (criteria.Subs.Contains(x.Sub3) && criteria.Subs.Contains(x.Sub4) && criteria.Subs.Contains(x.Sub1)) ||
+                                (criteria.Subs.Contains(x.Sub4) && criteria.Subs.Contains(x.Sub1) && criteria.Subs.Contains(x.Sub2)));
+                }
+            }
+
+            if (criteria.From.HasValue)
+            {
+                var fromDate = AppUtils.RefineSearchDate(criteria.From.Value, true);
+
+                _baseQuery = _baseQuery.Where(x => x.Date > fromDate);
+
+                var toDate = DateTime.Now;
+
+                _baseQuery = _baseQuery.Where(x => x.Date < toDate);
             }
 
             return _baseQuery;

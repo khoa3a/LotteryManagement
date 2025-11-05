@@ -42,7 +42,7 @@
             comboBoxSub4 = new ComboBox();
             button1 = new Button();
             label5 = new Label();
-            comboBoxDayOfWeek = new ComboBox();
+            dateTimePickerFrom = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             SuspendLayout();
             // 
@@ -58,7 +58,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             chart1.Series.Add(series1);
-            chart1.Size = new Size(1878, 905);
+            chart1.Size = new Size(2118, 1197);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
             // 
@@ -143,27 +143,27 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(1017, 46);
+            label5.Location = new Point(1003, 46);
             label5.Name = "label5";
-            label5.Size = new Size(100, 20);
+            label5.Size = new Size(49, 20);
             label5.TabIndex = 11;
-            label5.Text = "DAY Of WEEK";
+            label5.Text = "FROM";
             // 
-            // comboBoxDayOfWeek
+            // dateTimePickerFrom
             // 
-            comboBoxDayOfWeek.FormattingEnabled = true;
-            comboBoxDayOfWeek.Location = new Point(1145, 43);
-            comboBoxDayOfWeek.Name = "comboBoxDayOfWeek";
-            comboBoxDayOfWeek.Size = new Size(93, 28);
-            comboBoxDayOfWeek.TabIndex = 10;
+            dateTimePickerFrom.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerFrom.Location = new Point(1058, 43);
+            dateTimePickerFrom.Name = "dateTimePickerFrom";
+            dateTimePickerFrom.Size = new Size(200, 27);
+            dateTimePickerFrom.TabIndex = 12;
             // 
             // LinearRegressionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1902, 1033);
+            ClientSize = new Size(2142, 1325);
+            Controls.Add(dateTimePickerFrom);
             Controls.Add(label5);
-            Controls.Add(comboBoxDayOfWeek);
             Controls.Add(button1);
             Controls.Add(label4);
             Controls.Add(comboBoxSub4);
@@ -194,6 +194,6 @@
         private ComboBox comboBoxSub4;
         private Button button1;
         private Label label5;
-        private ComboBox comboBoxDayOfWeek;
+        private DateTimePicker dateTimePickerFrom;
     }
 }

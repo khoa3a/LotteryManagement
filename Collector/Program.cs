@@ -22,7 +22,7 @@ class Program
     private static NorthThursdayRepository northThursdayRepo;
 
     public static bool NORTH_DATA = true;
-    public static int WEEK_COUNT = 260; // 5 years (52 x 5)
+    public static int WEEK_COUNT = 20; // 5 years (52 x 5)
     public static int DAY_COUNT = 1825; // 5 years (365 x 5)
 
 
@@ -39,8 +39,9 @@ class Program
         List<NumberModel> allNumbers = new List<NumberModel>();
 
         var count = NORTH_DATA ? DAY_COUNT : WEEK_COUNT;
-        //test
-        //count = 1;
+        
+        // collect only 1 day        
+        count = 2;
 
         for (int i = 0; i < count; i++)
         {
@@ -377,8 +378,8 @@ class Program
                     Name = "MB",
                     Number = data.Trim(),
                     Sub2Number = data.Trim(),
-                    Sub3 = Convert.ToInt32(chars[0]),
-                    Sub4 = Convert.ToInt32(chars[1]),
+                    Sub3 = Convert.ToInt32(chars[0].ToString()),
+                    Sub4 = Convert.ToInt32(chars[1].ToString()),
                 });
             }
             else if (len == 3)
@@ -394,9 +395,9 @@ class Program
                     Number = data.Trim(),
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = data.Trim(),
-                    Sub1 = Convert.ToInt32(chars[len - 3]),
-                    Sub2 = Convert.ToInt32(chars[len - 2]),
-                    Sub3 = Convert.ToInt32(chars[len - 1]),
+                    Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                    Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                    Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                 });
             }
             else if (len == 4)
@@ -413,10 +414,10 @@ class Program
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                     Sub4Number = data.Trim(),
-                    Sub1 = Convert.ToInt32(chars[len - 4]),
-                    Sub2 = Convert.ToInt32(chars[len - 3]),
-                    Sub3 = Convert.ToInt32(chars[len - 2]),
-                    Sub4 = Convert.ToInt32(chars[len - 1]),
+                    Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                    Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                    Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                    Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                 });
             }
             else if (len == 5)
@@ -433,10 +434,10 @@ class Program
                     Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                     Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                     Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                    Sub1 = Convert.ToInt32(chars[len - 4]),
-                    Sub2 = Convert.ToInt32(chars[len - 3]),
-                    Sub3 = Convert.ToInt32(chars[len - 2]),
-                    Sub4 = Convert.ToInt32(chars[len - 1]),
+                    Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                    Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                    Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                    Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                 });
             }            
         }
@@ -485,8 +486,8 @@ class Program
                         Name = name1,
                         Number = data1.Trim(),
                         Sub2Number = data1.Trim(),
-                        Sub3 = Convert.ToInt32(chars[0]),
-                        Sub4 = Convert.ToInt32(chars[1]),
+                        Sub3 = Convert.ToInt32(chars[0].ToString()),
+                        Sub4 = Convert.ToInt32(chars[1].ToString()),
                     });
                 }
                 else if (len == 3)
@@ -498,25 +499,9 @@ class Program
                         Number = data1.Trim(),
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = data1.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 3]),
-                        Sub2 = Convert.ToInt32(chars[len - 2]),
-                        Sub3 = Convert.ToInt32(chars[len - 1]),
-                    });
-                }
-                else if (len == 3)
-                {
-                    result.Add(new NumberModel
-                    {
-                        DateKey = currentDate.ToString("dd-MM-yyyy"),
-                        Name = name1,
-                        Number = data1.Trim(),
-                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
-                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub4Number = data1.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
                 else if (len == 4)
@@ -529,13 +514,13 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data1.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
-                else if (len >= 5)
+                else if (len == 5)
                 {
                     result.Add(new NumberModel
                     {
@@ -545,10 +530,26 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
+                    });
+                }
+                else if (len == 6)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name1,
+                        Number = data1.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
             }
@@ -567,8 +568,8 @@ class Program
                         Name = name2,
                         Number = data2.Trim(),
                         Sub2Number = data2.Trim(),
-                        Sub3 = Convert.ToInt32(chars[0]),
-                        Sub4 = Convert.ToInt32(chars[1]),
+                        Sub3 = Convert.ToInt32(chars[0].ToString()),
+                        Sub4 = Convert.ToInt32(chars[1].ToString()),
                     });
                 }
                 else if (len == 3)
@@ -580,25 +581,9 @@ class Program
                         Number = data2.Trim(),
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = data2.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 3]),
-                        Sub2 = Convert.ToInt32(chars[len - 2]),
-                        Sub3 = Convert.ToInt32(chars[len - 1]),
-                    });
-                }
-                else if (len == 3)
-                {
-                    result.Add(new NumberModel
-                    {
-                        DateKey = currentDate.ToString("dd-MM-yyyy"),
-                        Name = name2,
-                        Number = data2.Trim(),
-                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
-                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub4Number = data2.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
                 else if (len == 4)
@@ -611,13 +596,13 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data2.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
-                else if (len >= 5)
+                else if (len == 5)
                 {
                     result.Add(new NumberModel
                     {
@@ -627,10 +612,26 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
+                    });
+                }
+                else if (len == 6)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name2,
+                        Number = data2.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
             }
@@ -649,8 +650,8 @@ class Program
                         Name = name3,
                         Number = data3.Trim(),
                         Sub2Number = data3.Trim(),
-                        Sub3 = Convert.ToInt32(chars[0]),
-                        Sub4 = Convert.ToInt32(chars[1]),
+                        Sub3 = Convert.ToInt32(chars[0].ToString()),
+                        Sub4 = Convert.ToInt32(chars[1].ToString()),
                     });
                 }
                 else if (len == 3)
@@ -662,25 +663,9 @@ class Program
                         Number = data3.Trim(),
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = data3.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 3]),
-                        Sub2 = Convert.ToInt32(chars[len - 2]),
-                        Sub3 = Convert.ToInt32(chars[len - 1]),
-                    });
-                }
-                else if (len == 3)
-                {
-                    result.Add(new NumberModel
-                    {
-                        DateKey = currentDate.ToString("dd-MM-yyyy"),
-                        Name = name3,
-                        Number = data3.Trim(),
-                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
-                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub4Number = data3.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
                 else if (len == 4)
@@ -693,13 +678,13 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = data3.Trim(),
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
-                else if (len >= 5)
+                else if (len == 5)
                 {
                     result.Add(new NumberModel
                     {
@@ -709,10 +694,26 @@ class Program
                         Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                         Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                         Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                        Sub1 = Convert.ToInt32(chars[len - 4]),
-                        Sub2 = Convert.ToInt32(chars[len - 3]),
-                        Sub3 = Convert.ToInt32(chars[len - 2]),
-                        Sub4 = Convert.ToInt32(chars[len - 1]),
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
+                    });
+                }
+                else if (len == 6)
+                {
+                    result.Add(new NumberModel
+                    {
+                        DateKey = currentDate.ToString("dd-MM-yyyy"),
+                        Name = name3,
+                        Number = data3.Trim(),
+                        Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                        Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                        Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                        Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                        Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                        Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                     });
                 }
             }
@@ -733,8 +734,8 @@ class Program
                             Name = name4,
                             Number = data4.Trim(),
                             Sub2Number = data4.Trim(),
-                            Sub3 = Convert.ToInt32(chars[0]),
-                            Sub4 = Convert.ToInt32(chars[1]),
+                            Sub3 = Convert.ToInt32(chars[0].ToString()),
+                            Sub4 = Convert.ToInt32(chars[1].ToString()),
                         });
                     }
                     else if (len == 3)
@@ -746,25 +747,9 @@ class Program
                             Number = data4.Trim(),
                             Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                             Sub3Number = data4.Trim(),
-                            Sub1 = Convert.ToInt32(chars[len - 3]),
-                            Sub2 = Convert.ToInt32(chars[len - 2]),
-                            Sub3 = Convert.ToInt32(chars[len - 1]),
-                        });
-                    }
-                    else if (len == 3)
-                    {
-                        result.Add(new NumberModel
-                        {
-                            DateKey = currentDate.ToString("dd-MM-yyyy"),
-                            Name = name4,
-                            Number = data4.Trim(),
-                            Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
-                            Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                            Sub4Number = data4.Trim(),
-                            Sub1 = Convert.ToInt32(chars[len - 4]),
-                            Sub2 = Convert.ToInt32(chars[len - 3]),
-                            Sub3 = Convert.ToInt32(chars[len - 2]),
-                            Sub4 = Convert.ToInt32(chars[len - 1]),
+                            Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                            Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                            Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                         });
                     }
                     else if (len == 4)
@@ -777,13 +762,13 @@ class Program
                             Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                             Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                             Sub4Number = data4.Trim(),
-                            Sub1 = Convert.ToInt32(chars[len - 4]),
-                            Sub2 = Convert.ToInt32(chars[len - 3]),
-                            Sub3 = Convert.ToInt32(chars[len - 2]),
-                            Sub4 = Convert.ToInt32(chars[len - 1]),
+                            Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                            Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                            Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                            Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                         });
                     }
-                    else if (len >= 5)
+                    else if (len == 5)
                     {
                         result.Add(new NumberModel
                         {
@@ -793,10 +778,26 @@ class Program
                             Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
                             Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
                             Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
-                            Sub1 = Convert.ToInt32(chars[len - 4]),
-                            Sub2 = Convert.ToInt32(chars[len - 3]),
-                            Sub3 = Convert.ToInt32(chars[len - 2]),
-                            Sub4 = Convert.ToInt32(chars[len - 1]),
+                            Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                            Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                            Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                            Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
+                        });
+                    }
+                    else if (len == 6)
+                    {
+                        result.Add(new NumberModel
+                        {
+                            DateKey = currentDate.ToString("dd-MM-yyyy"),
+                            Name = name4,
+                            Number = data4.Trim(),
+                            Sub2Number = $"{chars[len - 2]}{chars[len - 1]}",
+                            Sub3Number = $"{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                            Sub4Number = $"{chars[len - 4]}{chars[len - 3]}{chars[len - 2]}{chars[len - 1]}",
+                            Sub1 = Convert.ToInt32(chars[len - 4].ToString()),
+                            Sub2 = Convert.ToInt32(chars[len - 3].ToString()),
+                            Sub3 = Convert.ToInt32(chars[len - 2].ToString()),
+                            Sub4 = Convert.ToInt32(chars[len - 1].ToString()),
                         });
                     }
                 }

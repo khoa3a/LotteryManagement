@@ -15,8 +15,8 @@ namespace BLL.Entities
         public string Sub2Number { get; set; }
         public string Sub3Number { get; set; }
         public string Sub4Number { get; set; }
-        public int Sub1 { get; set; }
-        public int Sub2 { get; set; }
+        public int? Sub1 { get; set; }
+        public int? Sub2 { get; set; }
         public int Sub3 { get; set; }
         public int Sub4 { get; set; }
     }
