@@ -158,7 +158,7 @@ namespace LM
                 case DayOfWeek.Sunday:
                     List<SouthSundayEntity> southSundayEntities = numbers.Select(x => new SouthSundayEntity
                     {
-                        DateKey = x.DateKey,
+                        Date = x.Date,
                         Name = x.Name,
                         Number = x.Number,
                         Sub2Number = x.Sub2Number,

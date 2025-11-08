@@ -1,5 +1,6 @@
 ﻿using BLL;
 using BLL.Search;
+using Common;
 using DAL;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -78,7 +79,7 @@ namespace LM
             //comboBox.ValueMember = "Value";
             //comboBox.DataSource = items;
 
-            comboBox.SelectedIndex = 1;
+            comboBox.SelectedIndex = 0;
         }
 
         private (double slope, double intercept) CalculateLinearRegression(List<double> xValues, List<double> yValues)
@@ -106,7 +107,7 @@ namespace LM
             else if (criteria is SouthFridaySearchCriteria fridaySearchCriteria)
             {
                 listNumbers = southFridayRepo.SearchAll(fridaySearchCriteria).Select(x => x.Sub2Number).ToList();
-            }            
+            }
 
             Dictionary<string, int> result = listNumbers
                                     .GroupBy(x => x)
@@ -117,14 +118,16 @@ namespace LM
 
         private Dictionary<string, int> GetNorthData(NorthSearchCriteria criteria)
         {
-            //var criteria = new NorthSearchCriteria
-            //{
-            //    Subs = [1,3,7]
-            //};
+            List<string> listNumbers = new List<string>();
 
-
-
-            var listNumbers = northRepo.SearchAll(criteria).Select(x => x.Sub4Number).ToList();
+            if (criteria.Subs.SafeAny())
+            {
+                listNumbers = northRepo.SearchAll(criteria).Select(x => x.Sub4Number).ToList();
+            }
+            else 
+            {
+                listNumbers = northRepo.SearchAll(criteria).Select(x => x.Sub2Number).ToList();
+            }            
 
             Dictionary<string, int> result = listNumbers
                                     .GroupBy(x => x)
@@ -163,7 +166,7 @@ namespace LM
 
             var dayOfWeek = DateTime.Now.DayOfWeek;
 
-            switch(dayOfWeek)
+            switch (dayOfWeek)
             {
                 case DayOfWeek.Friday:
                     var criteriaFriday = new SouthFridaySearchCriteria
@@ -173,6 +176,7 @@ namespace LM
                     };
 
                     return criteriaFriday;
+
                 case DayOfWeek.Saturday:
                     var criteriaSaturday = new SouthSaturdaySearchCriteria
                     {
@@ -181,6 +185,15 @@ namespace LM
                     };
 
                     return criteriaSaturday;
+
+                case DayOfWeek.Sunday:
+                    var criteriaSunday = new SouthSundaySearchCriteria
+                    {
+                        Subs = subs,
+                        From = dateTimePickerFrom.Value
+                    };
+
+                    return criteriaSunday;
             }
 
             return new SearchCriteria();
@@ -304,7 +317,8 @@ namespace LM
             {
                 ChartType = SeriesChartType.Point,
                 MarkerSize = 12,
-                MarkerStyle = MarkerStyle.Circle
+                MarkerStyle = MarkerStyle.Circle,
+                Font = new Font("Arial", 16, FontStyle.Bold) // Font size 14
             };
 
             for (int i = 0; i < students.Count; i++)
@@ -342,7 +356,7 @@ namespace LM
             regressionSeries.Points.AddXY(students.Count - 1, slope * (students.Count - 1) + intercept);
 
             chart1.Series.Add(regressionSeries);
-        }        
+        }
 
         //public static void ShowChart(List<NumberData> students)
         //{

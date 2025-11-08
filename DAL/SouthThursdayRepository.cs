@@ -11,10 +11,10 @@ namespace DAL
         {
             _baseQuery = _dbContext.Set<SouthThursdayEntity>().AsNoTracking();
 
-            if (!string.IsNullOrEmpty(criteria.DateKey))
-            {
-                _baseQuery = _baseQuery.Where(x => x.DateKey == criteria.DateKey);
-            }
+            //if (!string.IsNullOrEmpty(criteria.DateKey))
+            //{
+            //    _baseQuery = _baseQuery.Where(x => x.DateKey == criteria.DateKey);
+            //}
 
             //if (criteria.DayOfWeek != null)
             //{
