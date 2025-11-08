@@ -10,12 +10,16 @@ namespace LM
     {
 
         private NorthRepository northRepo;
+        private SouthSaturdayRepository southSaturdayRepo;
+        private SouthFridayRepository southFridayRepo;
 
         public LinearRegressionForm()
         {
             InitializeComponent();
 
             northRepo = RepositoryFactory.GetNorthRepo();
+            southFridayRepo = RepositoryFactory.GetSouthFridayRepo();
+            southSaturdayRepo = RepositoryFactory.GetSouthSaturdayRepo();
 
             InitializeEvent();
 
@@ -91,6 +95,26 @@ namespace LM
             return (slope, intercept);
         }
 
+        private Dictionary<string, int> GetSouthData(SearchCriteria criteria)
+        {
+            var listNumbers = new List<string>();
+
+            if (criteria is SouthSaturdaySearchCriteria saturdaySearchCriteria)
+            {
+                listNumbers = southSaturdayRepo.SearchAll(saturdaySearchCriteria).Select(x => x.Sub2Number).ToList();
+            }
+            else if (criteria is SouthFridaySearchCriteria fridaySearchCriteria)
+            {
+                listNumbers = southFridayRepo.SearchAll(fridaySearchCriteria).Select(x => x.Sub2Number).ToList();
+            }            
+
+            Dictionary<string, int> result = listNumbers
+                                    .GroupBy(x => x)
+                                    .ToDictionary(g => g.Key.ToString(), g => g.Count());
+
+            return result;
+        }
+
         private Dictionary<string, int> GetNorthData(NorthSearchCriteria criteria)
         {
             //var criteria = new NorthSearchCriteria
@@ -108,6 +132,60 @@ namespace LM
 
             return result;
         }
+
+        private SearchCriteria GetSouthSearchCriteria()
+        {
+            List<int?> subs = new List<int?>();
+
+            int sub = Convert.ToInt32(comboBoxSub3.SelectedItem);
+            if (sub >= 0)
+            {
+                subs.Add(sub);
+            }
+
+            sub = Convert.ToInt32(comboBoxSub4.SelectedItem);
+            if (sub >= 0)
+            {
+                subs.Add(sub);
+            }
+
+            //sub = Convert.ToInt32(comboBoxSub3.SelectedItem);
+            //if (sub >= 0)
+            //{
+            //    subs.Add(sub);
+            //}
+
+            //sub = Convert.ToInt32(comboBoxSub4.SelectedItem);
+            //if (sub >= 0)
+            //{
+            //    subs.Add(sub);
+            //}
+
+            var dayOfWeek = DateTime.Now.DayOfWeek;
+
+            switch(dayOfWeek)
+            {
+                case DayOfWeek.Friday:
+                    var criteriaFriday = new SouthFridaySearchCriteria
+                    {
+                        Subs = subs,
+                        From = dateTimePickerFrom.Value
+                    };
+
+                    return criteriaFriday;
+                case DayOfWeek.Saturday:
+                    var criteriaSaturday = new SouthSaturdaySearchCriteria
+                    {
+                        Subs = subs,
+                        From = dateTimePickerFrom.Value
+                    };
+
+                    return criteriaSaturday;
+            }
+
+            return new SearchCriteria();
+        }
+
 
         private NorthSearchCriteria GetSearchCriteria()
         {
@@ -146,7 +224,17 @@ namespace LM
             return criteria;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void DrawSouthLinear(object sender, EventArgs e)
+        {
+            var criteria = GetSouthSearchCriteria();
+
+            var dic = GetSouthData(criteria);
+            List<NumberData> list = dic.Select(p => new NumberData { Name = p.Key, Score = p.Value }).ToList();
+
+            CreateRegressionChart(list);
+        }
+
+        private void DrawNorthLinear(object sender, EventArgs e)
         {
 
             var criteria = GetSearchCriteria();
@@ -215,13 +303,15 @@ namespace LM
             var pointSeries = new Series("Tần xuất")
             {
                 ChartType = SeriesChartType.Point,
-                MarkerSize = 8
+                MarkerSize = 12,
+                MarkerStyle = MarkerStyle.Circle
             };
 
             for (int i = 0; i < students.Count; i++)
             {
                 pointSeries.Points.AddXY(i, students[i].Score);
                 pointSeries.Points[i].Label = students[i].Name;
+                //pointSeries.Points[i].Font = new Font(;
             }
 
             chart1.Series.Clear();
@@ -252,7 +342,7 @@ namespace LM
             regressionSeries.Points.AddXY(students.Count - 1, slope * (students.Count - 1) + intercept);
 
             chart1.Series.Add(regressionSeries);
-        }
+        }        
 
         //public static void ShowChart(List<NumberData> students)
         //{

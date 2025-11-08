@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             comboBoxSub1 = new ComboBox();
             label1 = new Label();
@@ -40,24 +40,25 @@
             comboBoxSub3 = new ComboBox();
             label4 = new Label();
             comboBoxSub4 = new ComboBox();
-            button1 = new Button();
+            buttonNorthLinear = new Button();
             label5 = new Label();
             dateTimePickerFrom = new DateTimePicker();
+            buttonSouthLinear = new Button();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             SuspendLayout();
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            chart1.Legends.Add(legend2);
             chart1.Location = new Point(12, 116);
             chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            chart1.Series.Add(series2);
             chart1.Size = new Size(2118, 1197);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
@@ -130,15 +131,15 @@
             comboBoxSub4.Size = new Size(93, 28);
             comboBoxSub4.TabIndex = 7;
             // 
-            // button1
+            // buttonNorthLinear
             // 
-            button1.Location = new Point(1345, 18);
-            button1.Name = "button1";
-            button1.Size = new Size(239, 76);
-            button1.TabIndex = 9;
-            button1.Text = "LINEAR";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonNorthLinear.Location = new Point(1345, 18);
+            buttonNorthLinear.Name = "buttonNorthLinear";
+            buttonNorthLinear.Size = new Size(239, 76);
+            buttonNorthLinear.TabIndex = 9;
+            buttonNorthLinear.Text = "NORTH LINEAR";
+            buttonNorthLinear.UseVisualStyleBackColor = true;
+            buttonNorthLinear.Click += DrawNorthLinear;
             // 
             // label5
             // 
@@ -157,14 +158,25 @@
             dateTimePickerFrom.Size = new Size(200, 27);
             dateTimePickerFrom.TabIndex = 12;
             // 
+            // buttonSouthLinear
+            // 
+            buttonSouthLinear.Location = new Point(1630, 15);
+            buttonSouthLinear.Name = "buttonSouthLinear";
+            buttonSouthLinear.Size = new Size(239, 76);
+            buttonSouthLinear.TabIndex = 13;
+            buttonSouthLinear.Text = "SOUTH LINEAR";
+            buttonSouthLinear.UseVisualStyleBackColor = true;
+            buttonSouthLinear.Click += DrawSouthLinear;
+            // 
             // LinearRegressionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2142, 1325);
+            ClientSize = new Size(1924, 1175);
+            Controls.Add(buttonSouthLinear);
             Controls.Add(dateTimePickerFrom);
             Controls.Add(label5);
-            Controls.Add(button1);
+            Controls.Add(buttonNorthLinear);
             Controls.Add(label4);
             Controls.Add(comboBoxSub4);
             Controls.Add(label3);
@@ -192,8 +204,9 @@
         private ComboBox comboBoxSub3;
         private Label label4;
         private ComboBox comboBoxSub4;
-        private Button button1;
+        private Button buttonNorthLinear;
         private Label label5;
         private DateTimePicker dateTimePickerFrom;
+        private Button buttonSouthLinear;
     }
 }

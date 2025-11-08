@@ -118,7 +118,7 @@ namespace LM
                 case DayOfWeek.Wednesday:
                     List<SouthWednesdayEntity> southWednesdayEntities = numbers.Select(x => new SouthWednesdayEntity
                     {
-                        DateKey = x.DateKey,
+                        Date = x.Date,
                         Name = x.Name,
                         Number = x.Number,
                         Sub2Number = x.Sub2Number,
@@ -128,7 +128,7 @@ namespace LM
                 case DayOfWeek.Thursday:
                     List<SouthThursdayEntity> southThursdayEntities = numbers.Select(x => new SouthThursdayEntity
                     {
-                        DateKey = x.DateKey,
+                        Date = x.Date,
                         Name = x.Name,
                         Number = x.Number,
                         Sub2Number = x.Sub2Number,
@@ -138,7 +138,7 @@ namespace LM
                 case DayOfWeek.Friday:
                     List<SouthFridayEntity> southFridayEntities = numbers.Select(x => new SouthFridayEntity
                     {
-                        DateKey = x.DateKey,
+                        Date = x.Date,
                         Name = x.Name,
                         Number = x.Number,
                         Sub2Number = x.Sub2Number,
@@ -148,7 +148,7 @@ namespace LM
                 case DayOfWeek.Saturday:
                     List<SouthSaturdayEntity> southSaturdayEntities = numbers.Select(x => new SouthSaturdayEntity
                     {
-                        DateKey = x.DateKey,
+                        Date = x.Date,
                         Name = x.Name,
                         Number = x.Number,
                         Sub2Number = x.Sub2Number,
@@ -172,7 +172,7 @@ namespace LM
         {
             return numbers.Select(x => new SouthSaturdayEntity
             {
-                DateKey = x.DateKey,
+                Date = x.Date,
                 Name = x.Name,
                 Number = x.Number
             }).ToList();
