@@ -21,11 +21,11 @@ class Program
     private static NorthWednesdayRepository northWednesdayRepo;
     private static NorthThursdayRepository northThursdayRepo;
 
-    public static bool NORTH_DATA = true;
+    public static bool NORTH_DATA = false;
     public static int WEEK_COUNT = 24; // 6 months
     public static int DAY_COUNT = 1825; // 5 years (365 x 5)
 
-    public static DateTime NOW = DateTime.Now.AddDays(1);
+    public static DateTime NOW = DateTime.Now.AddDays(2);
 
 
     static void Main()
@@ -42,8 +42,8 @@ class Program
 
         var count = NORTH_DATA ? DAY_COUNT : WEEK_COUNT;
 
-        // collect only 1 day        
-        count = 4;
+        // collect n day        
+        //count = 4;
 
         for (int i = 0; i < count; i++)
         {
@@ -119,7 +119,7 @@ class Program
             case DayOfWeek.Monday:
                 List<SouthMondayEntity> southMondayEntities = numbers.Select(x => new SouthMondayEntity
                 {
-                    DateKey = x.DateKey,
+                    Date = x.Date,
                     Name = x.Name,
                     Number = x.Number,
                     Sub2Number = x.Sub2Number,
@@ -137,7 +137,7 @@ class Program
 
                 List<SouthTuesdayEntity> southTuesdayEntities = numbers.Select(x => new SouthTuesdayEntity
                 {
-                    DateKey = x.DateKey,
+                    Date = x.Date,
                     Name = x.Name,
                     Number = x.Number,
                     Sub2Number = x.Sub2Number,

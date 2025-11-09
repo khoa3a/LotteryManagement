@@ -4,7 +4,6 @@ using Common;
 using DAL;
 using System.Windows.Forms.DataVisualization.Charting;
 
-
 namespace LM
 {
     public partial class LinearRegressionForm : Form
@@ -13,6 +12,8 @@ namespace LM
         private NorthRepository northRepo;
         private SouthSaturdayRepository southSaturdayRepo;
         private SouthFridayRepository southFridayRepo;
+        private SouthSundayRepository southSundayRepo;
+        private SouthMondayRepository southMondayRepo;
 
         public LinearRegressionForm()
         {
@@ -21,6 +22,8 @@ namespace LM
             northRepo = RepositoryFactory.GetNorthRepo();
             southFridayRepo = RepositoryFactory.GetSouthFridayRepo();
             southSaturdayRepo = RepositoryFactory.GetSouthSaturdayRepo();
+            southSundayRepo = RepositoryFactory.GetSouthSundayRepo();
+            southMondayRepo = RepositoryFactory.GetSouthMondayRepo();
 
             InitializeEvent();
 
@@ -41,6 +44,8 @@ namespace LM
             PopulateComboBox(comboBoxSub2, data);
             PopulateComboBox(comboBoxSub3, data);
             PopulateComboBox(comboBoxSub4, data);
+
+            comboBoxDoW.DataSource = Enum.GetValues(typeof(DayOfWeek));
 
             //dateTimePickerFrom.Value = new DateTime(DateTime.Now.Year, 1, 1);
             dateTimePickerFrom.Value = DateTime.Now.AddMonths(-6);
@@ -100,7 +105,15 @@ namespace LM
         {
             var listNumbers = new List<string>();
 
-            if (criteria is SouthSaturdaySearchCriteria saturdaySearchCriteria)
+            if (criteria is SouthSundaySearchCriteria sundaySearchCriteria)
+            {
+                listNumbers = southSundayRepo.SearchAll(sundaySearchCriteria).Select(x => x.Sub2Number).ToList();
+            }
+            else if (criteria is SouthMondaySearchCriteria mondaySearchCriteria)
+            {
+                listNumbers = southMondayRepo.SearchAll(mondaySearchCriteria).Select(x => x.Sub2Number).ToList();
+            }
+            else if (criteria is SouthSaturdaySearchCriteria saturdaySearchCriteria)
             {
                 listNumbers = southSaturdayRepo.SearchAll(saturdaySearchCriteria).Select(x => x.Sub2Number).ToList();
             }
@@ -164,10 +177,19 @@ namespace LM
             //    subs.Add(sub);
             //}
 
-            var dayOfWeek = DateTime.Now.DayOfWeek;
+            var dayOfWeek = comboBoxDoW.SelectedValue;
 
             switch (dayOfWeek)
             {
+                case DayOfWeek.Monday:
+                    var criteriaMonday = new SouthMondaySearchCriteria
+                    {
+                        Subs = subs,
+                        From = dateTimePickerFrom.Value
+                    };
+
+                    return criteriaMonday;
+
                 case DayOfWeek.Friday:
                     var criteriaFriday = new SouthFridaySearchCriteria
                     {

@@ -2,6 +2,8 @@
 {
     public class SouthMondaySearchCriteria : SearchCriteria
     {
-        public string DateKey { get; set; } = string.Empty;
+        public List<int?> Subs { get; set; }
+
+        public DateTime? From { get; set; } = null;
     }
 }

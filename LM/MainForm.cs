@@ -98,7 +98,7 @@ namespace LM
                 case DayOfWeek.Monday:
                     List<SouthMondayEntity> southMondayEntities = numbers.Select(x => new SouthMondayEntity
                     {
-                        DateKey = x.DateKey,
+                        Date = x.Date,
                         Name = x.Name,
                         Number = x.Number,
                         Sub2Number = x.Sub2Number,
@@ -108,7 +108,7 @@ namespace LM
                 case DayOfWeek.Tuesday:
                     List<SouthTuesdayEntity> southTuesdayEntities = numbers.Select(x => new SouthTuesdayEntity
                     {
-                        DateKey = x.DateKey,
+                        Date = x.Date,
                         Name = x.Name,
                         Number = x.Number,
                         Sub2Number = x.Sub2Number,
