@@ -1,17 +1,11 @@
 ﻿using BLL.Entities;
 using BLL.Search;
 using BLL;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common;
 using Common.Utils;
 
 namespace DAL
-{    
+{
     public class SouthTuesdayRepository : BaseRepository<SouthTuesdayEntity, SouthTuesdaySearchCriteria, SouthTuesdaySearchResult, LotteryManagementEntities>
     {
         protected override IQueryable<SouthTuesdayEntity> BuildQuery(SouthTuesdaySearchCriteria criteria)
@@ -44,6 +38,11 @@ namespace DAL
                                 (criteria.Subs.Contains(x.Sub3) && criteria.Subs.Contains(x.Sub4)) ||
                                 (criteria.Subs.Contains(x.Sub4) && criteria.Subs.Contains(x.Sub3)));
                 }
+            }
+
+            if (!string.IsNullOrEmpty(criteria.Name))
+            {
+                _baseQuery = _baseQuery.Where(x => x.Name.Equals(criteria.Name, StringComparison.OrdinalIgnoreCase));
             }
 
             if (criteria.From.HasValue)

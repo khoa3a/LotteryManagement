@@ -46,6 +46,8 @@
             buttonSouthLinear = new Button();
             label6 = new Label();
             comboBoxDoW = new ComboBox();
+            label7 = new Label();
+            comboBoxName = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             SuspendLayout();
             // 
@@ -68,7 +70,7 @@
             // comboBoxSub1
             // 
             comboBoxSub1.FormattingEnabled = true;
-            comboBoxSub1.Location = new Point(84, 40);
+            comboBoxSub1.Location = new Point(69, 40);
             comboBoxSub1.Name = "comboBoxSub1";
             comboBoxSub1.Size = new Size(93, 28);
             comboBoxSub1.TabIndex = 1;
@@ -85,7 +87,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(227, 43);
+            label2.Location = new Point(176, 43);
             label2.Name = "label2";
             label2.Size = new Size(44, 20);
             label2.TabIndex = 4;
@@ -94,7 +96,7 @@
             // comboBoxSub2
             // 
             comboBoxSub2.FormattingEnabled = true;
-            comboBoxSub2.Location = new Point(292, 40);
+            comboBoxSub2.Location = new Point(223, 40);
             comboBoxSub2.Name = "comboBoxSub2";
             comboBoxSub2.Size = new Size(93, 28);
             comboBoxSub2.TabIndex = 3;
@@ -102,7 +104,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(455, 46);
+            label3.Location = new Point(345, 46);
             label3.Name = "label3";
             label3.Size = new Size(44, 20);
             label3.TabIndex = 6;
@@ -111,7 +113,7 @@
             // comboBoxSub3
             // 
             comboBoxSub3.FormattingEnabled = true;
-            comboBoxSub3.Location = new Point(520, 43);
+            comboBoxSub3.Location = new Point(395, 43);
             comboBoxSub3.Name = "comboBoxSub3";
             comboBoxSub3.Size = new Size(93, 28);
             comboBoxSub3.TabIndex = 5;
@@ -119,7 +121,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(673, 46);
+            label4.Location = new Point(506, 46);
             label4.Name = "label4";
             label4.Size = new Size(44, 20);
             label4.TabIndex = 8;
@@ -128,14 +130,14 @@
             // comboBoxSub4
             // 
             comboBoxSub4.FormattingEnabled = true;
-            comboBoxSub4.Location = new Point(738, 43);
+            comboBoxSub4.Location = new Point(555, 43);
             comboBoxSub4.Name = "comboBoxSub4";
             comboBoxSub4.Size = new Size(93, 28);
             comboBoxSub4.TabIndex = 7;
             // 
             // buttonNorthLinear
             // 
-            buttonNorthLinear.Location = new Point(1345, 18);
+            buttonNorthLinear.Location = new Point(1363, 18);
             buttonNorthLinear.Name = "buttonNorthLinear";
             buttonNorthLinear.Size = new Size(239, 76);
             buttonNorthLinear.TabIndex = 9;
@@ -146,7 +148,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(1068, 46);
+            label5.Location = new Point(1089, 46);
             label5.Name = "label5";
             label5.Size = new Size(49, 20);
             label5.TabIndex = 11;
@@ -155,7 +157,7 @@
             // dateTimePickerFrom
             // 
             dateTimePickerFrom.CustomFormat = "dd/MM/yyyy";
-            dateTimePickerFrom.Location = new Point(1123, 43);
+            dateTimePickerFrom.Location = new Point(1144, 43);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
             dateTimePickerFrom.Size = new Size(200, 27);
             dateTimePickerFrom.TabIndex = 12;
@@ -173,7 +175,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(883, 45);
+            label6.Location = new Point(667, 45);
             label6.Name = "label6";
             label6.Size = new Size(45, 20);
             label6.TabIndex = 15;
@@ -182,16 +184,35 @@
             // comboBoxDoW
             // 
             comboBoxDoW.FormattingEnabled = true;
-            comboBoxDoW.Location = new Point(948, 42);
+            comboBoxDoW.Location = new Point(722, 42);
             comboBoxDoW.Name = "comboBoxDoW";
             comboBoxDoW.Size = new Size(93, 28);
             comboBoxDoW.TabIndex = 14;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(828, 46);
+            label7.Name = "label7";
+            label7.Size = new Size(51, 20);
+            label7.TabIndex = 17;
+            label7.Text = "NAME";
+            // 
+            // comboBoxName
+            // 
+            comboBoxName.FormattingEnabled = true;
+            comboBoxName.Location = new Point(894, 43);
+            comboBoxName.Name = "comboBoxName";
+            comboBoxName.Size = new Size(189, 28);
+            comboBoxName.TabIndex = 16;
             // 
             // LinearRegressionForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 1175);
+            Controls.Add(label7);
+            Controls.Add(comboBoxName);
             Controls.Add(label6);
             Controls.Add(comboBoxDoW);
             Controls.Add(buttonSouthLinear);
@@ -231,5 +252,7 @@
         private Button buttonSouthLinear;
         private Label label6;
         private ComboBox comboBoxDoW;
+        private Label label7;
+        private ComboBox comboBoxName;
     }
 }

@@ -25,7 +25,8 @@ class Program
     public static int WEEK_COUNT = 24; // 6 months
     public static int DAY_COUNT = 1825; // 5 years (365 x 5)
 
-    public static DateTime NOW = DateTime.Now.AddDays(2);
+    //public static DateTime NOW = DateTime.Now;
+    public static DateTime NOW = DateTime.Now.AddDays(1);
 
 
     static void Main()
@@ -43,7 +44,7 @@ class Program
         var count = NORTH_DATA ? DAY_COUNT : WEEK_COUNT;
 
         // collect n day        
-        //count = 4;
+        count = 1;
 
         for (int i = 0; i < count; i++)
         {

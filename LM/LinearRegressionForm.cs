@@ -9,11 +9,19 @@ namespace LM
     public partial class LinearRegressionForm : Form
     {
 
-        private NorthRepository northRepo;
-        private SouthSaturdayRepository southSaturdayRepo;
-        private SouthFridayRepository southFridayRepo;
+        private NorthRepository northRepo;        
+        
         private SouthSundayRepository southSundayRepo;
         private SouthMondayRepository southMondayRepo;
+        private SouthTuesdayRepository southTuesdayRepo;
+        private SouthWednesdayRepository southWednesdayRepo;
+        private SouthThursdayRepository southThursdayRepo;
+        private SouthFridayRepository southFridayRepo;
+        private SouthSaturdayRepository southSaturdayRepo;
+
+        private List<string> tuesdayNames = new List<string> { "Bến Tre", "Vũng Tàu", "Bạc Liêu" };
+        private List<string> wednesdayNames = new List<string> { "Đồng Nai", "Cần Thơ", "Sóc Trăng" };
+        private List<string> thursdayNames = new List<string> { "Tây Ninh", "An Giang", "Bình Thuận" };
 
         public LinearRegressionForm()
         {
@@ -24,6 +32,9 @@ namespace LM
             southSaturdayRepo = RepositoryFactory.GetSouthSaturdayRepo();
             southSundayRepo = RepositoryFactory.GetSouthSundayRepo();
             southMondayRepo = RepositoryFactory.GetSouthMondayRepo();
+            southTuesdayRepo = RepositoryFactory.GetSouthTuesdayRepo();
+            southWednesdayRepo = RepositoryFactory.GetSouthWednesdayRepo();
+            southThursdayRepo = RepositoryFactory.GetSouthThursdayRepo();
 
             InitializeEvent();
 
@@ -34,6 +45,28 @@ namespace LM
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             //this.Paint += LinearRegressionForm_Paint;
+
+            //cmComboBoxQuotation.OnSelectedIndexChanged += new EventHandler(HandleQuotationChange);
+            comboBoxDoW.SelectedIndexChanged += new EventHandler(HandleDoWChange);
+        }
+
+        private void HandleDoWChange(object sender, EventArgs e)
+        {
+            //PopulateAmountTextBox();
+            var dayOfWeek = comboBoxDoW.SelectedValue;
+
+            switch (dayOfWeek)
+            {
+                case DayOfWeek.Tuesday:
+                    comboBoxName.DataSource = tuesdayNames;
+                    break;
+                case DayOfWeek.Wednesday:
+                    comboBoxName.DataSource = wednesdayNames;
+                    break;
+                case DayOfWeek.Thursday:
+                    comboBoxName.DataSource = thursdayNames;
+                    break;
+            }
         }
 
         private void InitializeData()
@@ -53,52 +86,20 @@ namespace LM
 
         private void PopulateComboBox(ComboBox comboBox, List<int> models, bool addDefaultItem = true)
         {
-            //var items = new List<ComboBoxItem>();
             comboBox.Items.Clear();
             if (addDefaultItem)
             {
-                //var translation = GetTranslation();
-                //var messages = GetTranslationMessages(translation);
                 var defaultItem = "-1";
 
-                //items.Add(new ComboBoxItem(defaultItem, ""));
                 comboBox.Items.Add(defaultItem);
             }
 
             foreach (var model in models)
             {
-                //string name = "";
-                //string value = "";
-
-                //if (model is User user)
-                //{
-                //    name = user.FullName;
-                //    value = user.Id;
-                //}                
-
-                //items.Add(new ComboBoxItem(name, value));
                 comboBox.Items.Add(model);
             }
 
-            //comboBox.DisplayMember = "Name";
-            //comboBox.ValueMember = "Value";
-            //comboBox.DataSource = items;
-
             comboBox.SelectedIndex = 0;
-        }
-
-        private (double slope, double intercept) CalculateLinearRegression(List<double> xValues, List<double> yValues)
-        {
-            int n = xValues.Count;
-            double sumX = xValues.Sum();
-            double sumY = yValues.Sum();
-            double sumXY = xValues.Zip(yValues, (x, y) => x * y).Sum();
-            double sumX2 = xValues.Sum(x => x * x);
-
-            double slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-            double intercept = (sumY - slope * sumX) / n;
-
-            return (slope, intercept);
         }
 
         private Dictionary<string, int> GetSouthData(SearchCriteria criteria)
@@ -113,14 +114,26 @@ namespace LM
             {
                 listNumbers = southMondayRepo.SearchAll(mondaySearchCriteria).Select(x => x.Sub2Number).ToList();
             }
-            else if (criteria is SouthSaturdaySearchCriteria saturdaySearchCriteria)
+            else if (criteria is SouthTuesdaySearchCriteria tuesdaySearchCriteria)
             {
-                listNumbers = southSaturdayRepo.SearchAll(saturdaySearchCriteria).Select(x => x.Sub2Number).ToList();
+                listNumbers = southTuesdayRepo.SearchAll(tuesdaySearchCriteria).Select(x => x.Sub2Number).ToList();
+            }
+            else if (criteria is SouthWednesdaySearchCriteria wednesdaySearchCriteria)
+            {
+                listNumbers = southWednesdayRepo.SearchAll(wednesdaySearchCriteria).Select(x => x.Sub2Number).ToList();
+            }
+            else if (criteria is SouthThursdaySearchCriteria thursdaySearchCriteria)
+            {
+                listNumbers = southThursdayRepo.SearchAll(thursdaySearchCriteria).Select(x => x.Sub2Number).ToList();
             }
             else if (criteria is SouthFridaySearchCriteria fridaySearchCriteria)
             {
                 listNumbers = southFridayRepo.SearchAll(fridaySearchCriteria).Select(x => x.Sub2Number).ToList();
             }
+            else if (criteria is SouthSaturdaySearchCriteria saturdaySearchCriteria)
+            {
+                listNumbers = southSaturdayRepo.SearchAll(saturdaySearchCriteria).Select(x => x.Sub2Number).ToList();
+            }            
 
             Dictionary<string, int> result = listNumbers
                                     .GroupBy(x => x)
@@ -137,10 +150,10 @@ namespace LM
             {
                 listNumbers = northRepo.SearchAll(criteria).Select(x => x.Sub4Number).ToList();
             }
-            else 
+            else
             {
                 listNumbers = northRepo.SearchAll(criteria).Select(x => x.Sub2Number).ToList();
-            }            
+            }
 
             Dictionary<string, int> result = listNumbers
                                     .GroupBy(x => x)
@@ -189,6 +202,36 @@ namespace LM
                     };
 
                     return criteriaMonday;
+
+                case DayOfWeek.Tuesday:
+                    var criteriaTuesday = new SouthTuesdaySearchCriteria
+                    {
+                        Subs = subs,
+                        Name = comboBoxName.Text,
+                        From = dateTimePickerFrom.Value
+                    };
+
+                    return criteriaTuesday;
+
+                case DayOfWeek.Wednesday:
+                    var criteriaWednesday = new SouthWednesdaySearchCriteria
+                    {
+                        Subs = subs,
+                        Name = comboBoxName.Text,
+                        From = dateTimePickerFrom.Value
+                    };
+
+                    return criteriaWednesday;
+
+                case DayOfWeek.Thursday:
+                    var criteriaThursday = new SouthThursdaySearchCriteria
+                    {
+                        Subs = subs,
+                        Name = comboBoxName.Text,
+                        From = dateTimePickerFrom.Value
+                    };
+
+                    return criteriaThursday;
 
                 case DayOfWeek.Friday:
                     var criteriaFriday = new SouthFridaySearchCriteria
@@ -278,63 +321,14 @@ namespace LM
             List<NumberData> list = dic.Select(p => new NumberData { Name = p.Key, Score = p.Value }).ToList();
 
             CreateRegressionChart(list);
-
-            //// Dữ liệu: ngày và nhiệt độ
-            //List<double> days = new List<double> { 1, 2, 3, 4, 5, 6, 7 };
-            //List<double> temps = new List<double> { 22, 24, 23, 25, 26, 27, 28 };
-
-            //// Tính hệ số hồi quy
-            //var (slope, intercept) = CalculateLinearRegression(days, temps);
-
-            //// Cấu hình Chart
-            //chart1.Series.Clear();
-            //chart1.ChartAreas[0].AxisX.Title = "Ngày";
-            //chart1.ChartAreas[0].AxisY.Title = "Nhiệt độ (°C)";
-
-            //var tempSeries = chart1.Series.Add("Temperature");
-            //tempSeries.ChartType = SeriesChartType.Point;
-            //tempSeries.Color = Color.Blue;
-
-            //var regressionSeries = chart1.Series.Add("Regression");
-            //regressionSeries.ChartType = SeriesChartType.Line;
-            //regressionSeries.Color = Color.Red;
-
-            //// Vẽ dữ liệu và đường hồi quy
-            //for (int i = 0; i < days.Count; i++)
-            //{
-            //    tempSeries.Points.AddXY(days[i], temps[i]);
-            //}
-
-            //// Vẽ đường hồi quy tuyến tính
-            //double xMin = days.Min();
-            //double xMax = days.Max();
-            //double yMin = slope * xMin + intercept;
-            //double yMax = slope * xMax + intercept;
-
-            //regressionSeries.Points.AddXY(xMin, yMin);
-            //regressionSeries.Points.AddXY(xMax, yMax);
         }
 
         private void CreateRegressionChart(List<NumberData> students)
         {
-            // Danh sách học sinh và điểm
-            //var students = new List<(string Name, double Score)>
-            //{
-            //    ("An", 7.5),
-            //    ("Bình", 8.0),
-            //    ("Cường", 6.5),
-            //    ("Dũng", 9.0),
-            //    ("Hà", 7.0)
-            //};
-
-            // Tạo Chart control
-            //var chart = new Chart { Dock = DockStyle.Fill };
             var chartArea = new ChartArea("MainArea");
             chart1.ChartAreas.Clear();
             chart1.ChartAreas.Add(chartArea);
-            //this.Controls.Add(chart1);
 
-            // Series điểm học sinh
             var pointSeries = new Series("Tần xuất")
             {
                 ChartType = SeriesChartType.Point,
@@ -347,7 +341,6 @@ namespace LM
             {
                 pointSeries.Points.AddXY(i, students[i].Score);
                 pointSeries.Points[i].Label = students[i].Name;
-                //pointSeries.Points[i].Font = new Font(;
             }
 
             chart1.Series.Clear();
@@ -379,43 +372,5 @@ namespace LM
 
             chart1.Series.Add(regressionSeries);
         }
-
-        //public static void ShowChart(List<NumberData> students)
-        //{
-        //    var plotModel = new PlotModel { Title = "Biểu đồ hồi quy điểm học sinh" };
-
-        //    // Vẽ điểm học sinh
-        //    var scatterSeries = new ScatterSeries { MarkerType = MarkerType.Circle };
-        //    for (int i = 0; i < students.Count; i++)
-        //    {
-        //        scatterSeries.Points.Add(new ScatterPoint(i, students[i].Score));
-        //    }
-        //    plotModel.Series.Add(scatterSeries);
-
-        //    // Tính hồi quy tuyến tính
-        //    var xValues = Enumerable.Range(0, students.Count).Select(i => (double)i).ToList();
-        //    var yValues = students.Select(s => s.Score).ToList();
-
-        //    double xAvg = xValues.Average();
-        //    double yAvg = yValues.Average();
-
-        //    double numerator = xValues.Zip(yValues, (x, y) => (x - xAvg) * (y - yAvg)).Sum();
-        //    double denominator = xValues.Sum(x => Math.Pow(x - xAvg, 2));
-
-        //    double slope = numerator / denominator;
-        //    double intercept = yAvg - slope * xAvg;
-
-        //    // Vẽ đường hồi quy
-        //    var lineSeries = new LineSeries { Title = "Hồi quy tuyến tính", Color = OxyColors.Red };
-        //    lineSeries.Points.Add(new DataPoint(0, intercept));
-        //    lineSeries.Points.Add(new DataPoint(students.Count - 1, slope * (students.Count - 1) + intercept));
-        //    plotModel.Series.Add(lineSeries);
-
-        //    // Hiển thị biểu đồ
-        //    var plotView = new PlotView { Model = plotModel, Dock = DockStyle.Fill };
-        //    var form = new Form { Width = 800, Height = 600 };
-        //    form.Controls.Add(plotView);
-        //    Application.Run(form);
-        //}
     }
 }
